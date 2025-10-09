@@ -1,0 +1,15 @@
+# archivos temporales y de usuario
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# datos crudos grandes
+/data-raw/
+
+/*.xlsx
+/*.xls
+
+# sistema
+.DS_Store
+Thumbs.db
