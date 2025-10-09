@@ -1,0 +1,88 @@
+---
+title: "Bitacora 2"
+format:
+  html: default
+  pdf: default
+editor: visual
+---
+
+# Bitácora 2 Proyecto Grupal
+
+```{r include = FALSE}
+
+#setup
+
+library(tidyverse)
+library(here)
+
+
+
+ruta <- here("data", "processed", "Estadísticas Policiales 2019 a Julio 2025.csv")
+
+datos <- read_csv(ruta)
+
+
+# Vista general
+n.filas <- nrow(datos)
+n.cols <- ncol(datos)
+variables <- names(datos)
+rango.fechas <- range(datos$fecha, na.rm = TRUE)
+```
+
+## 1
+
+### Características de los datos
+
+Se utilizaron las bases de datos de crímenes registrados entre 2019 y julio de 2025, disponibles en el portal de datos del Poder Judicial: <https://sitiooij.poder-judicial.go.cr/index.php/ayuda/servicios-policiales/servicios-a-organizaciones/indice-de-transparencia-del-sector-publico-costarricense/datos-abiertos>.
+
+En este sentido, estas bases venían separadas por año y presentaban algunas inconsistencias entre ellas. Por ejemplo, entre 2019 y 2023 la variable del sexo se denominaba “género”, mientras que a partir de 2024 pasó a llamarse “sexo”. Asimismo, la columna de fecha aparecía en formato *char* en algunos años y en formato *Date* en otros.
+
+Para resolver esto, se unificaron los datos, combinando todos los archivos en una única base que incluye todos los crímenes registrados en el periodo 2019–julio 2025.
+
+De esta forma, resultó una base de datos con las siguientes características:
+
+-   Tamaño: `{r} n.filas` x `{r} n.cols`.
+-   Va de `{r} rango.fechas[1]` a `{r} rango.fechas[2]`.
+-   Todas las variables son cualitativas: `{r} variables`.
+
+### Población de estudio
+
+La población de estudio corresponde a todos los eventos delictivos ocurridos en Costa Rica de 2019 a julio de 2025.
+
+### Muestra observada
+
+La muestra son las observaciones registradas de delitos en Costa Rica del 01/01/2019 a las 00:00:00 al 31/07/25 a las 23:59:59, almacenadas en la base del Poder Judicial.
+
+### Unidad estadística
+
+Corresponde a cada observación de delito junto con sus atributos: `{r} variables`
+
+### Variables de estudio
+
+| Variable | Tipo | Descripción |
+|----|----|----|
+| fecha | Fecha | Día del evento |
+| hora | Categórica | Tramos horarios de 3 horas |
+| delito | Categórica | Categoría principal del hecho |
+| subdelito | Categórica | Subtipo de delito |
+| victima | Categórica | Tipo de víctima (pueden ser objetos como VIVIENDA o VEHÍCULO). |
+| subvictima | Categórica | Subtipo de víctima |
+| sexo | Categórica | Sexo de la víctima. |
+| edad | Categórica | Edad de la víctima. |
+| nacionalidad | Categórica | Nacionalidad de la víctima. |
+| provincia | Categórica | Provincia donde ocurrió el hecho |
+| canton | Categórica | Cantón donde ocurrió el hecho |
+| distrito | Categórica | Distrito donde ocurrió el hecho |
+
+**Es importante recalcar que las bases de datos traen columnas correspondientes a persona (edad, sexo, nacionalidad) incluso cuando victima es VEHICULO, VIVIENDA, EDIFICACION, etc; lo cual se puede deber a valores por defecto de captura. Para un correcto análisis se coloca NA en dichas posiciones. hacer**
+
+## 2
+
+```{r}
+
+slice_head(datos, n = 5)
+```
+
+## 3
+
+La base de datos no presenta variables cuantitativas; incluso la edad es presentada en categorías (MAYOR DE EDAD o MENOR DE EDAD), por lo tanto no se puede realizar el resumen.
