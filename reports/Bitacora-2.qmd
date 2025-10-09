@@ -27,6 +27,9 @@ n.filas <- nrow(datos)
 n.cols <- ncol(datos)
 variables <- names(datos)
 rango.fechas <- range(datos$fecha, na.rm = TRUE)
+
+#Ordenar por orden cronólogico los sucesos 
+
 ```
 
 ## 1
@@ -60,8 +63,8 @@ Corresponde a cada observación de delito junto con sus atributos: `{r} variable
 ### Variables de estudio
 
 | Variable | Tipo | Descripción |
-|----|----|----|
-| fecha | Fecha | Día del evento |
+|------------------------|-----------------------|------------------------|
+| fecha |  Fecha | Día del evento |
 | hora | Categórica | Tramos horarios de 3 horas |
 | delito | Categórica | Categoría principal del hecho |
 | subdelito | Categórica | Subtipo de delito |
@@ -74,7 +77,14 @@ Corresponde a cada observación de delito junto con sus atributos: `{r} variable
 | canton | Categórica | Cantón donde ocurrió el hecho |
 | distrito | Categórica | Distrito donde ocurrió el hecho |
 
-**Es importante recalcar que las bases de datos traen columnas correspondientes a persona (edad, sexo, nacionalidad) incluso cuando victima es VEHICULO, VIVIENDA, EDIFICACION, etc; lo cual se puede deber a valores por defecto de captura. Para un correcto análisis se coloca NA en dichas posiciones. hacer**
+**Es importante recalcar que las bases de datos traen columnas correspondientes a persona (edad, sexo, nacionalidad) incluso cuando victima es VEHICULO, VIVIENDA, EDIFICACION, etc; lo cual se puede deber a valores por defecto de captura. Para un correcto análisis se coloca NA en dichas posiciones. Aqui se muestra un ejemplo de como quedarían los datos aplicando estos cambios:**
+
+```{r}
+datos %>% 
+  select(victima, subvictima, edad, sexo, nacionalidad) %>% 
+  filter(victima != "PERSONA") %>% 
+  slice_head(n = 10)
+```
 
 ## 2
 
@@ -85,4 +95,4 @@ slice_head(datos, n = 5)
 
 ## 3
 
-La base de datos no presenta variables cuantitativas; incluso la edad es presentada en categorías (MAYOR DE EDAD o MENOR DE EDAD), por lo tanto no se puede realizar el resumen.
+La base de datos no presenta variables cuantitativas; incluso la edad es presentada en categorías (MAYOR DE EDAD o MENOR DE EDAD), por lo tanto no se puede realizar el resumen. Hacer

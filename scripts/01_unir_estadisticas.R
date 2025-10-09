@@ -29,7 +29,10 @@ for(anio in 19:25){
 
 datos.2019.2025 <- bind_rows(lista.datos)
 
-ruta.salida <- here("data", "processed", "Estadísticas Policiales 2019 a Julio 2025.csv")
+#Ordenamos los sucesos de manera cronológica
+datos.2019.2025 <- datos.2019.2025 %>% 
+  arrange(fecha)
 
+ruta.salida <- here("data", "processed", "Estadísticas Policiales 2019 a Julio 2025.csv")
 
 write_csv(datos.2019.2025, ruta.salida)
