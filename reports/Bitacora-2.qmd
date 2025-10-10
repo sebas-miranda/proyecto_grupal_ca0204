@@ -14,6 +14,7 @@ editor: visual
 
 library(tidyverse)
 library(here)
+library(readr)
 
 
 
@@ -64,7 +65,7 @@ Corresponde a cada observación de delito junto con sus atributos: `{r} variable
 
 | Variable | Tipo | Descripción |
 |------------------------|-----------------------|------------------------|
-| fecha |  Fecha | Día del evento |
+| fecha | Fecha | Día del evento |
 | hora | Categórica | Tramos horarios de 3 horas |
 | delito | Categórica | Categoría principal del hecho |
 | subdelito | Categórica | Subtipo de delito |
@@ -86,7 +87,9 @@ datos %>%
   slice_head(n = 10)
 ```
 
-## 2
+## 2 
+
+Se agregan las primeras 5 filas de nuestra base de datos:
 
 ```{r}
 
@@ -95,4 +98,62 @@ slice_head(datos, n = 5)
 
 ## 3
 
-La base de datos no presenta variables cuantitativas; incluso la edad es presentada en categorías (MAYOR DE EDAD o MENOR DE EDAD), por lo tanto no se puede realizar el resumen. Hacer
+Uno de los principales retos encontrados en esta base de datos, es que todas las variables de la misma son categóricas. Es decir, no hay ninguna variable cuantitativa. Incluso la variable de edad, se divide en pocas categorias (NO APLICA, ADULTO MAYOR, MAYOR DE EDAD, MENOR DE EDAD, DESCONOCIDO)
+
+Entonces, para afrontar este reto, se realiza una distribucion de frecuencias como la que se ha mostrado anteriormente. De esta manera, se puede analizar, retomando el caso de la edad por ejemplo, la frecuencia de cada categoria. Pero, se analiza cada variable de acuerdo al orden de la base de datos:
+
+```{r}
+resumen_delito <-  read_csv(here("data/processed/resumen_delito.csv"), show_col_types = FALSE)
+head(resumen_delito, 10)
+```
+
+Estos son los 10 delitos que más frecuencia ha tenido en el pais en los ultimos seis años, aunque no se debe descartar que hay mas de 30 tipos de delitos reportados en los ultimos seis años. Lideran el hurto, asalto, robo, los delitos contra la propiedad y el vehículo como los cinco delitos más frecuentes. Por lo que se puede entender que hay una tendencia hacia los delitos reportados que implican el robo de un bien.
+
+```{r}
+resumen_subdelito <-  read_csv(here("data/processed/resumen_subdelito.csv"), show_col_types = FALSE)
+head(resumen_subdelito, 10)
+```
+
+Análogamente, estos son los diez subdelitos más frecuentes que se reportan en Costa Rica desde 2019 hasta 2025. Liderando los descuidos, el arma de fuego, la forzadura, la tacha de vehículo y el hurto. Podemos observar que la tendencia tiene una intrínsica relación con los delitos reportados (Pues son sucesos secundarios del delito principal).
+
+```{r}
+resumen_victima <-  read_csv(here("data/processed/resumen_victima.csv"), show_col_types = FALSE)
+resumen_victima
+```
+
+Con respecto a las víctimas, aproximadamente la mitad de las víctimas de los delitos reportados son personas. Note quel total de víctimas de personas se relaciona con los primeros tres delitos más reportados (Hurto, asalto y robo). Seguido de los vehículos (Robo de vehículos), la vivienda y edificaciones (Delitos contra la propiedad) y los otros. Para efectos de esta investigación, el foco de atención se centra en las víctimas que son personas.
+
+```{r}
+resumen_subvictima <-  read_csv(here("data/processed/resumen_subvictima.csv"), show_col_types = FALSE)
+head(resumen_subvictima, 10)
+```
+
+Estos son las diez subvíctimas implicadas en los delitos reportados. Como puede observar, más de la mitad de víctimas implicadas en los delitos reportados no son como tal personas. Por ende, se comprende que los daños colaterales de los eventos son los bienes de las víctimas. Cabe recalcar que más de 50 000 peatones son víctimas frecuentes de los delitos. Esto tiene relación con los hurtos, robos y asaltos, que son la mayoría de eventos registrados. Por lo tanto, se entiende que gran parte de los delitos cometidos ocurren en sitios públicos.
+
+```{r}
+resumen_edad <-  read_csv(here("data/processed/resumen_edad.csv"), show_col_types = FALSE)
+resumen_edad
+```
+
+De acuerdo a las frecuencias, se interpretan las mismas como rangos de edad. Más de la mitad de las víctimas no son personas (Como se observa en el cuadro de víctimas), por lo que, las personas mayores de edad son las que más reportan delitos que ocurren en contra de sí mismas. También se puede observar que bajo los mayores de edad, se encuentran los menores; por lo que han habido más de 10 000 víctimas menores de edad en los últimos 6 años. En menor frecuencia los adultos mayores, y por último, más de 7000 casos con edad no registrada.
+
+```{r}
+resumen_sexo <-  read_csv(here("data/processed/resumen_sexo.csv"), show_col_types = FALSE)
+resumen_sexo
+```
+
+Análogamente con la edad, hay exactamente 185975 casos donde las víctimas no son personas. Por ende, solo hay registro de más de 58 mil hombres víctimas de delitos, y más de 34 mil víctimas mujeres. Se desconoce el sexo de 66000 casos aproximadamente.
+
+```{r}
+resumen_nacionalidad <-  read_csv(here("data/processed/resumen_nacionalidad.csv"), show_col_types = FALSE)
+head(resumen_nacionalidad, 10)
+```
+
+Obviando los casos donde las víctimas no son personas, aproximadamente el 37% de las víctimas son de nacionalidad costarricense, seguidamente del 5% de las víctimas, que son nicaraguenses, el 1,36% son casos no registrados y el 0,55% de víctimas han sido estadounidenses.
+
+```{r}
+resumen_provincia <-  read_csv(here("data/processed/resumen_provincia.csv"), show_col_types = FALSE)
+resumen_provincia
+```
+
+Acá se puede observar la frecuencia de delitos cometidos de acuerdo a la provincia. Siendo la capital la provincia donde más se reportan delitos, seguido de Alajuela, con una diferencia de reporte de delitos de 75612 casos, una variación muy alta, a diferencia de las siguientes provincias. Por último, Cartago, la provincia donde menos se reportan delitos, y 29 casos de los que no se tiene información.

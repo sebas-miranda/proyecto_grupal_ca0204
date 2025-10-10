@@ -33,6 +33,18 @@ datos.2019.2025 <- bind_rows(lista.datos)
 datos.2019.2025 <- datos.2019.2025 %>% 
   arrange(fecha)
 
+#Pasamos todas las filas a letras mayusculas
+datos.2019.2025 <- datos.2019.2025 %>% 
+  mutate(across( c(delito, subdelito, victima, subvictima, edad, sexo, nacionalidad, provincia, canton, distrito), toupper))
+
+#En la columna sexo eliminamos lo que no sea hombre, mujer, no aplica o desconocido, y lo pasamos a desconocido.
+
+datos.2019.2025 <- datos.2019.2025 %>% 
+  mutate(sexo = case_when(
+    sexo %in% c("HOMBRE", "MUJER", "NO APLICA", "DESCONOCIDO") ~ sexo, TRUE ~ "DESCONOCIDO"
+  ))
+
 ruta.salida <- here("data", "processed", "Estadísticas Policiales 2019 a Julio 2025.csv")
 
 write_csv(datos.2019.2025, ruta.salida)
+

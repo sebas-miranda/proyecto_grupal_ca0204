@@ -231,16 +231,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="section-1" class="level2">
 <h2 class="anchored" data-anchor-id="section-1">2</h2>
+<p>Se agregan las primeras 5 filas de nuestra base de datos:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(datos, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 12
   delito subdelito  fecha      hora  victima subvictima edad  sexo  nacionalidad
   &lt;chr&gt;  &lt;chr&gt;      &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       
-1 ASALTO ARMA BLAN… 2019-01-01 18:0… PERSONA PEATON [P… Mayo… HOMB… COSTA RICA  
-2 ASALTO ARMA BLAN… 2019-01-01 06:0… PERSONA PEATON [P… Mayo… HOMB… COSTA RICA  
-3 ASALTO ARMA BLAN… 2019-01-01 18:0… PERSONA OTRO O IN… Mayo… HOMB… COSTA RICA  
-4 ASALTO ARMA BLAN… 2019-01-01 03:0… PERSONA PEATON [P… Mayo… MUJER COSTA RICA  
+1 ASALTO ARMA BLAN… 2019-01-01 18:0… PERSONA PEATON [P… MAYO… HOMB… COSTA RICA  
+2 ASALTO ARMA BLAN… 2019-01-01 06:0… PERSONA PEATON [P… MAYO… HOMB… COSTA RICA  
+3 ASALTO ARMA BLAN… 2019-01-01 18:0… PERSONA OTRO O IN… MAYO… HOMB… COSTA RICA  
+4 ASALTO ARMA BLAN… 2019-01-01 03:0… PERSONA PEATON [P… MAYO… MUJER COSTA RICA  
 5 ASALTO ARMA BLAN… 2019-01-01 12:0… VIVIEN… NO APLICA  NO A… NO A… NO APLICA   
 # ℹ 3 more variables: provincia &lt;chr&gt;, canton &lt;chr&gt;, distrito &lt;chr&gt;</code></pre>
 </div>
@@ -248,7 +249,150 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="section-2" class="level2">
 <h2 class="anchored" data-anchor-id="section-2">3</h2>
-<p>La base de datos no presenta variables cuantitativas; incluso la edad es presentada en categorías (MAYOR DE EDAD o MENOR DE EDAD), por lo tanto no se puede realizar el resumen. Hacer</p>
+<p>Uno de los principales retos encontrados en esta base de datos, es que todas las variables de la misma son categóricas. Es decir, no hay ninguna variable cuantitativa. Incluso la variable de edad, se divide en pocas categorias (NO APLICA, ADULTO MAYOR, MAYOR DE EDAD, MENOR DE EDAD, DESCONOCIDO)</p>
+<p>Entonces, para afrontar este reto, se realiza una distribucion de frecuencias como la que se ha mostrado anteriormente. De esta manera, se puede analizar, retomando el caso de la edad por ejemplo, la frecuencia de cada categoria. Pero, se analiza cada variable de acuerdo al orden de la base de datos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>resumen_delito <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_delito.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resumen_delito, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   delito                            frecuencia_de_delitos
+   &lt;chr&gt;                                             &lt;dbl&gt;
+ 1 HURTO                                             79231
+ 2 ASALTO                                            67374
+ 3 ROBO                                              55178
+ 4 DELITOS CONTRA LA PROPIEDAD                       45854
+ 5 ROBO DE VEHICULO                                  23138
+ 6 TACHA DE VEHICULO                                 19683
+ 7 ESTAFAS Y OTRAS DEFRAUDACIONES                    18302
+ 8 DELITOS CONTRA LA VIDA                             7971
+ 9 OTROS DELITOS CONTRA LA PROPIEDAD                  5421
+10 DELITOS INFORMATICOS                               4903</code></pre>
+</div>
+</div>
+<p>Estos son los 10 delitos que más frecuencia ha tenido en el pais en los ultimos seis años, aunque no se debe descartar que hay mas de 30 tipos de delitos reportados en los ultimos seis años. Lideran el hurto, asalto, robo, los delitos contra la propiedad y el vehículo como los cinco delitos más frecuentes. Por lo que se puede entender que hay una tendencia hacia los delitos reportados que implican el robo de un bien.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resumen_subdelito <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_subdelito.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resumen_subdelito, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   subdelito         frecuencia_de_subdelitos
+   &lt;chr&gt;                                &lt;dbl&gt;
+ 1 POR DESCUIDO                         41511
+ 2 ARMA DE FUEGO                        30820
+ 3 FORZADURA                            29225
+ 4 TACHA DE VEHICULO                    19683
+ 5 HURTO                                15744
+ 6 ASALTO                               15545
+ 7 POR CONFIANZA                        14753
+ 8 ARMA BLANCA                          14555
+ 9 ROBO                                 14228
+10 CARTERISTA                           12343</code></pre>
+</div>
+</div>
+<p>Análogamente, estos son los diez subdelitos más frecuentes que se reportan en Costa Rica desde 2019 hasta 2025. Liderando los descuidos, el arma de fuego, la forzadura, la tacha de vehículo y el hurto. Podemos observar que la tendencia tiene una intrínsica relación con los delitos reportados (Pues son sucesos secundarios del delito principal).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>resumen_victima <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_victima.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>resumen_victima</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  victima                 frecuencia_de_victimas
+  &lt;chr&gt;                                    &lt;dbl&gt;
+1 PERSONA                                 159090
+2 VEHICULO [NO APLICA]                     68422
+3 VIVIENDA [NO APLICA]                     61221
+4 EDIFICACION [NO APLICA]                  41144
+5 OTROS [NO APLICA]                        15188</code></pre>
+</div>
+</div>
+<p>Con respecto a las víctimas, aproximadamente la mitad de las víctimas de los delitos reportados son personas. Note quel total de víctimas de personas se relaciona con los primeros tres delitos más reportados (Hurto, asalto y robo). Seguido de los vehículos (Robo de vehículos), la vivienda y edificaciones (Delitos contra la propiedad) y los otros. Para efectos de esta investigación, el foco de atención se centra en las víctimas que son personas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>resumen_subvictima <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_subvictima.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resumen_subvictima, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   subvictima                               frecuencia_de_subvictimas
+   &lt;chr&gt;                                                        &lt;dbl&gt;
+ 1 NO APLICA                                                   185975
+ 2 PEATON [PERSONA]                                             54951
+ 3 OTRO O INDETERMINADO                                         19097
+ 4 PEATON                                                       16047
+ 5 OTRO O INDETERMINADO [PERSONA]                               13563
+ 6 CLIENTE BANCARIO                                             12869
+ 7 CLIENTE LOCAL COMERCIAL [PERSONA]                             8186
+ 8 PASAJERO DE TRANSPORTE PUBLICO [PERSONA]                      5580
+ 9 CLIENTE LOCAL COMERCIAL                                       2808
+10 MENOR DE EDAD                                                 2797</code></pre>
+</div>
+</div>
+<p>Estos son las diez subvíctimas implicadas en los delitos reportados. Como puede observar, más de la mitad de víctimas implicadas en los delitos reportados no son como tal personas. Por ende, se comprende que los daños colaterales de los eventos son los bienes de las víctimas. Cabe recalcar que más de 50 000 peatones son víctimas frecuentes de los delitos. Esto tiene relación con los hurtos, robos y asaltos, que son la mayoría de eventos registrados. Por lo tanto, se entiende que gran parte de los delitos cometidos ocurren en sitios públicos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>resumen_edad <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_edad.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>resumen_edad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  edad          frecuencia_rango_de_edades
+  &lt;chr&gt;                              &lt;dbl&gt;
+1 NO APLICA                         185975
+2 MAYOR DE EDAD                     132656
+3 MENOR DE EDAD                      10076
+4 ADULTO MAYOR                        9273
+5 DESCONOCIDO                         7085</code></pre>
+</div>
+</div>
+<p>De acuerdo a las frecuencias, se interpretan las mismas como rangos de edad. Más de la mitad de las víctimas no son personas (Como se observa en el cuadro de víctimas), por lo que, las personas mayores de edad son las que más reportan delitos que ocurren en contra de sí mismas. También se puede observar que bajo los mayores de edad, se encuentran los menores; por lo que han habido más de 10 000 víctimas menores de edad en los últimos 6 años. En menor frecuencia los adultos mayores, y por último, más de 7000 casos con edad no registrada.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>resumen_sexo <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_sexo.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>resumen_sexo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  sexo        frecuencia_de_sexo
+  &lt;chr&gt;                    &lt;dbl&gt;
+1 NO APLICA               185975
+2 DESCONOCIDO              66142
+3 HOMBRE                   58178
+4 MUJER                    34770</code></pre>
+</div>
+</div>
+<p>Análogamente con la edad, hay exactamente 185975 casos donde las víctimas no son personas. Por ende, solo hay registro de más de 58 mil hombres víctimas de delitos, y más de 34 mil víctimas mujeres. Se desconoce el sexo de 66000 casos aproximadamente.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>resumen_nacionalidad <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_nacionalidad.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resumen_nacionalidad, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   nacionalidad   frecuencia_de_nacionalidades
+   &lt;chr&gt;                                 &lt;dbl&gt;
+ 1 NO APLICA                            185975
+ 2 COSTA RICA                           126959
+ 3 NICARAGUA                             17179
+ 4 DESCONOCIDO                            4710
+ 5 ESTADOS UNIDOS                         1899
+ 6 VENEZUELA                               821
+ 7 ALEMANIA                                723
+ 8 COLOMBIA                                612
+ 9 FRANCIA                                 575
+10 CANADA                                  530</code></pre>
+</div>
+</div>
+<p>Obviando los casos donde las víctimas no son personas, aproximadamente el 37% de las víctimas son de nacionalidad costarricense, seguidamente del 5% de las víctimas, que son nicaraguenses, el 1,36% son casos no registrados y el 0,55% de víctimas han sido estadounidenses.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>resumen_provincia <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_provincia.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>resumen_provincia</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 2
+  provincia   frecuencia_de_provincias
+  &lt;chr&gt;                          &lt;dbl&gt;
+1 SAN JOSE                      129730
+2 ALAJUELA                       54118
+3 PUNTARENAS                     41217
+4 LIMON                          32249
+5 HEREDIA                        30854
+6 GUANACASTE                     29394
+7 CARTAGO                        27474
+8 DESCONOCIDO                       29</code></pre>
+</div>
+</div>
+<p>Acá se puede observar la frecuencia de delitos cometidos de acuerdo a la provincia. Siendo la capital la provincia donde más se reportan delitos, seguido de Alajuela, con una diferencia de reporte de delitos de 75612 casos, una variación muy alta, a diferencia de las siguientes provincias. Por último, Cartago, la provincia donde menos se reportan delitos, y 29 casos de los que no se tiene información.</p>
 </section>
 </section>
 
