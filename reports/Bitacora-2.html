@@ -132,7 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
-<col style="width: 32%">
+<col style="width: 33%">
 <col style="width: 33%">
 </colgroup>
 <thead>
@@ -253,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Entonces, para afrontar este reto, se realiza una distribucion de frecuencias como la que se ha mostrado anteriormente. De esta manera, se puede analizar, retomando el caso de la edad por ejemplo, la frecuencia de cada categoria. Pero, se analiza cada variable de acuerdo al orden de la base de datos:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>resumen_delito <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_delito.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resumen_delito, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>resumen_delito</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 2
    delito                            frecuencia_de_delitos
@@ -272,28 +272,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Estos son los 10 delitos que más frecuencia ha tenido en el pais en los ultimos seis años, aunque no se debe descartar que hay mas de 30 tipos de delitos reportados en los ultimos seis años. Lideran el hurto, asalto, robo, los delitos contra la propiedad y el vehículo como los cinco delitos más frecuentes. Por lo que se puede entender que hay una tendencia hacia los delitos reportados que implican el robo de un bien.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resumen_subdelito <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_subdelito.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resumen_subdelito, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 2
-   subdelito         frecuencia_de_subdelitos
-   &lt;chr&gt;                                &lt;dbl&gt;
- 1 POR DESCUIDO                         41511
- 2 ARMA DE FUEGO                        30820
- 3 FORZADURA                            29225
- 4 TACHA DE VEHICULO                    19683
- 5 HURTO                                15744
- 6 ASALTO                               15545
- 7 POR CONFIANZA                        14753
- 8 ARMA BLANCA                          14555
- 9 ROBO                                 14228
-10 CARTERISTA                           12343</code></pre>
-</div>
-</div>
-<p>Análogamente, estos son los diez subdelitos más frecuentes que se reportan en Costa Rica desde 2019 hasta 2025. Liderando los descuidos, el arma de fuego, la forzadura, la tacha de vehículo y el hurto. Podemos observar que la tendencia tiene una intrínsica relación con los delitos reportados (Pues son sucesos secundarios del delito principal).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>resumen_victima <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_victima.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>resumen_victima</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resumen_victima <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_victima.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>resumen_victima</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   victima                 frecuencia_de_victimas
@@ -307,28 +287,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Con respecto a las víctimas, aproximadamente la mitad de las víctimas de los delitos reportados son personas. Note quel total de víctimas de personas se relaciona con los primeros tres delitos más reportados (Hurto, asalto y robo). Seguido de los vehículos (Robo de vehículos), la vivienda y edificaciones (Delitos contra la propiedad) y los otros. Para efectos de esta investigación, el foco de atención se centra en las víctimas que son personas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>resumen_subvictima <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_subvictima.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resumen_subvictima, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 2
-   subvictima                               frecuencia_de_subvictimas
-   &lt;chr&gt;                                                        &lt;dbl&gt;
- 1 NO APLICA                                                   185975
- 2 PEATON [PERSONA]                                             54951
- 3 OTRO O INDETERMINADO                                         19097
- 4 PEATON                                                       16047
- 5 OTRO O INDETERMINADO [PERSONA]                               13563
- 6 CLIENTE BANCARIO                                             12869
- 7 CLIENTE LOCAL COMERCIAL [PERSONA]                             8186
- 8 PASAJERO DE TRANSPORTE PUBLICO [PERSONA]                      5580
- 9 CLIENTE LOCAL COMERCIAL                                       2808
-10 MENOR DE EDAD                                                 2797</code></pre>
-</div>
-</div>
-<p>Estos son las diez subvíctimas implicadas en los delitos reportados. Como puede observar, más de la mitad de víctimas implicadas en los delitos reportados no son como tal personas. Por ende, se comprende que los daños colaterales de los eventos son los bienes de las víctimas. Cabe recalcar que más de 50 000 peatones son víctimas frecuentes de los delitos. Esto tiene relación con los hurtos, robos y asaltos, que son la mayoría de eventos registrados. Por lo tanto, se entiende que gran parte de los delitos cometidos ocurren en sitios públicos.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>resumen_edad <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_edad.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>resumen_edad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>resumen_edad <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_edad.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>resumen_edad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   edad          frecuencia_rango_de_edades
@@ -342,8 +302,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>De acuerdo a las frecuencias, se interpretan las mismas como rangos de edad. Más de la mitad de las víctimas no son personas (Como se observa en el cuadro de víctimas), por lo que, las personas mayores de edad son las que más reportan delitos que ocurren en contra de sí mismas. También se puede observar que bajo los mayores de edad, se encuentran los menores; por lo que han habido más de 10 000 víctimas menores de edad en los últimos 6 años. En menor frecuencia los adultos mayores, y por último, más de 7000 casos con edad no registrada.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>resumen_sexo <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_sexo.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>resumen_sexo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>resumen_sexo <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_sexo.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>resumen_sexo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   sexo        frecuencia_de_sexo
@@ -356,8 +316,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Análogamente con la edad, hay exactamente 185975 casos donde las víctimas no son personas. Por ende, solo hay registro de más de 58 mil hombres víctimas de delitos, y más de 34 mil víctimas mujeres. Se desconoce el sexo de 66000 casos aproximadamente.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>resumen_nacionalidad <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_nacionalidad.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resumen_nacionalidad, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>resumen_nacionalidad <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_nacionalidad.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>resumen_nacionalidad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 2
    nacionalidad   frecuencia_de_nacionalidades
@@ -376,8 +336,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Obviando los casos donde las víctimas no son personas, aproximadamente el 37% de las víctimas son de nacionalidad costarricense, seguidamente del 5% de las víctimas, que son nicaraguenses, el 1,36% son casos no registrados y el 0,55% de víctimas han sido estadounidenses.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>resumen_provincia <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_provincia.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>resumen_provincia</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>resumen_provincia <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_provincia.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>resumen_provincia</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 2
   provincia   frecuencia_de_provincias
@@ -393,6 +353,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Acá se puede observar la frecuencia de delitos cometidos de acuerdo a la provincia. Siendo la capital la provincia donde más se reportan delitos, seguido de Alajuela, con una diferencia de reporte de delitos de 75612 casos, una variación muy alta, a diferencia de las siguientes provincias. Por último, Cartago, la provincia donde menos se reportan delitos, y 29 casos de los que no se tiene información.</p>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">4</h2>
+<p>De acuerdo con Campos (2020), se van a importar los graficos hechos por cada tabla de frecuencias mediante el siguiente codigo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Ejemplo:  [](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width='100px'}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Empezamos con las variables</p>
+<p>Variable delito</p>
+<p>![](info/graphics/grafico_delito.png)<br>
+<br>
+BIBLIOGRAFIA<br>
+<br>
+<a href="#0">https://rpubs.com/Juve_Campos/ImagenesyMultimediaEnRmarkdown</a><br>
+<br>
+<a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="uri">https://ggplot2.tidyverse.org/reference/coord_flip.html</a><br>
+<br>
+<a href="https://es.scribd.com/document/432904420/Paleta-de-Colores-en-R" class="uri">https://es.scribd.com/document/432904420/Paleta-de-Colores-en-R</a><br>
+<a href="https://mapscaping.com/read-write-shapefiles-in-r/"><br>
+https://mapscaping.com/read-write-shapefiles-in-r/</a></p>
+<p><a href="https://r-charts.com/es/espacial/mapa-burbujas/" class="uri">https://r-charts.com/es/espacial/mapa-burbujas/</a></p>
 </section>
 </section>
 
