@@ -64,7 +64,7 @@ Corresponde a cada observación de delito junto con sus atributos: `{r} variable
 ### Variables de estudio
 
 | Variable | Tipo | Descripción |
-|------------------------|-----------------------|------------------------|
+|------------------------|------------------------|------------------------|
 | fecha | Fecha | Día del evento |
 | hora | Categórica | Tramos horarios de 3 horas |
 | delito | Categórica | Categoría principal del hecho |
@@ -87,7 +87,7 @@ datos %>%
   slice_head(n = 10)
 ```
 
-## 2 
+## 2
 
 Se agregan las primeras 5 filas de nuestra base de datos:
 
@@ -157,3 +157,5 @@ resumen_provincia
 ```
 
 Acá se puede observar la frecuencia de delitos cometidos de acuerdo a la provincia. Siendo la capital la provincia donde más se reportan delitos, seguido de Alajuela, con una diferencia de reporte de delitos de 75612 casos, una variación muy alta, a diferencia de las siguientes provincias. Por último, Cartago, la provincia donde menos se reportan delitos, y 29 casos de los que no se tiene información.
+
+## 4
