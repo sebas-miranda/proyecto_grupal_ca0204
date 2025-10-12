@@ -176,7 +176,7 @@ grafico_cantones <- ggplot(cantones) +
 ggsave(
   filename = here("info", "graphics", "grafico_cantones.png"),
   plot = grafico_cantones, 
-  width = 15, height = 10, dpi = 200
+  width = 15, height = 10, dpi = 450
 )
 
 
