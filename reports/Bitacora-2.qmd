@@ -299,6 +299,135 @@ grafico_sexo_edad <- resumen_sexo_edad %>%
 grafico_sexo_edad
 ```
 
+## 6
+
+## 7
+
+Para identificar los valores faltantes, es útil convertir los valores que aparecen como NO APLICA o DESCONOCIDO en verdaderos valores faltantes (NA) solo cuando el valor no tiene sentido en función del tipo de víctima. Para esto se puede modelar una función que detecta NA en cada archivo y genera un reporte de cuántos valores faltan. 
+
+```{r}
+
+reporte_faltantes_df <- function(df, dataset_name = "", etiquetas = c("DESCONOCIDO", "NO APLICA")){
+  total_rows   <- nrow(df)
+  na_reales    <- sapply(df, function(x) sum(is.na(x)))
+  na_etiquetas <- sapply(df, function(x) if (is.character(x)) sum(x %in% etiquetas) else 0L)
+  data.frame(
+    dataset      = dataset_name,
+    columna      = names(df),
+    na_reales    = as.integer(na_reales),
+    na_etiqueta  = as.integer(na_etiquetas),
+    na_total     = as.integer(na_reales + na_etiquetas),
+    pct_faltante = round(100 * (na_reales + na_etiquetas) / max(total_rows, 1L), 2),
+    row.names = NULL
+  )
+}
+
+# Reportes (uno por cada resumen)
+reporte_faltantes <- rbind(
+  reporte_faltantes_df(resumen_canton,       "resumen_canton"),
+  reporte_faltantes_df(resumen_delito,       "resumen_delito"),
+  reporte_faltantes_df(resumen_edad,         "resumen_edad"),
+  reporte_faltantes_df(resumen_nacionalidad, "resumen_nacionalidad"),
+  reporte_faltantes_df(resumen_provincia,    "resumen_provincia"),
+  reporte_faltantes_df(resumen_sexo,         "resumen_sexo"),
+  reporte_faltantes_df(resumen_victima,      "resumen_victima")
+)
+
+# Mostrar el reporte completo
+reporte_faltantes
+```
+
+Ahora, para identificar outliers se va a utilizar el método IQR (Interquartile Range o Rango Intercuartílico) la cual es una técnica estadística utilizada para identificar valores atípicos en un conjunto de datos. Un valor se considera outlier si se encuentra fuera de los límites:𝑥< Q1 − 1.5 × IQR o𝑥> Q3 + 1.5 × IQR. Donde IQR=Q3-Q1.
+Este método es robusto porque no se ve afectado por la asimetría o valores extremos aislados. En este proyecto se utilizará el criterio del 1.5 × IQR, que es el mismo que emplean los gráficos de caja (boxplots) para detectar valores inusualmente altos o bajos en las frecuencias de delitos.
+
+```{r}
+# Función que detecta outliers por regla IQR 
+outliers_iqr <- function(df, id_col, val_col, dataset){
+  v  <- df[[val_col]]
+  q1 <- quantile(v, 0.25, na.rm = TRUE)
+  q3 <- quantile(v, 0.75, na.rm = TRUE)
+  iqr <- q3 - q1
+  lim_inf <- q1 - 1.5 * iqr
+  lim_sup <- q3 + 1.5 * iqr
+  
+  out <- df[v < lim_inf | v > lim_sup, c(id_col, val_col), drop = FALSE]
+  names(out) <- c("id", "valor")
+  mutate(out, dataset = dataset, .before = 1)
+}
+
+
+# Aplicación a cada resumen
+o_canton    <- outliers_q1q3_std(resumen_canton,       "canton",       "frecuencia_de_cantones",       "resumen_canton")
+o_delito    <- outliers_q1q3_std(resumen_delito,       "delito",       "frecuencia_de_delitos",        "resumen_delito")
+o_edad      <- outliers_q1q3_std(resumen_edad,         "edad",         "frecuencia_rango_de_edades",   "resumen_edad")
+o_nacional  <- outliers_q1q3_std(resumen_nacionalidad, "nacionalidad", "frecuencia_de_nacionalidades", "resumen_nacionalidad")
+o_provincia <- outliers_q1q3_std(resumen_provincia,    "provincia",    "frecuencia_de_provincias",     "resumen_provincia")
+o_sexo      <- outliers_q1q3_std(resumen_sexo,         "sexo",         "frecuencia_de_sexo",           "resumen_sexo")
+o_victima   <- outliers_q1q3_std(resumen_victima,      "victima",      "frecuencia_de_victimas",       "resumen_victima")
+
+outliers_consolidados <- bind_rows(
+  o_canton, o_delito, o_edad, o_nacional, o_provincia, o_sexo, o_victima
+)
+
+outliers_consolidados
+
+```
+
+
+## 8
+
+Se identificaron anteriormente la presencia de valores vacíos o NA en las bases de datos. Para esto, se aplica una estrategia distinta para diferentes tipos de variables, con el objetivo de obtener una base de datos más limpia y sin cosas innecesarias, el cual se muestra a continuación:
+
+```{r}
+# Demográficas: quitar NO APLICA / DESCONOCIDO (para análisis sobre personas)
+resumen_edad_clean <- resumen_edad %>% filter(!edad %in% lab_na)
+resumen_sexo_clean <- resumen_sexo %>% filter(!sexo %in% lab_na)
+resumen_nacionalidad_clean <- resumen_nacionalidad %>% filter(!nacionalidad %in% lab_na)
+
+# Territoriales: quitar DESCONOCIDO
+resumen_provincia_clean <- resumen_provincia %>% filter(!provincia %in% "DESCONOCIDO")
+resumen_canton_clean    <- resumen_canton %>% filter(!canton %in% "DESCONOCIDO")
+
+# Delito/Víctima: conservar todo
+resumen_delito_clean  <- resumen_delito
+resumen_victima_clean <- resumen_victima
+```
+
+En el punto anterior se observaron muchos outliers, los cual se debe corregir. La winsorización es una técnica estadística utilizada para reducir el efecto de valores extremos sin eliminarlos del conjunto de datos. Consiste en reemplazar los valores que superan los límites definidos (ya sea por percentiles o por el rango intercuartílico) por el valor más cercano dentro de esos límites. En este proyecto se aplicará una winsorización basada en el método IQR (1.5 × IQR), con el fin de suavizar la influencia de los cantones o delitos con frecuencias extremadamente altas, como San José o Hurto, los cuales, aunque representan fenómenos reales, podrían distorsionar la visualización y el análisis estadístico. De esta forma se conserva la información esencial sin perder la coherencia general de la distribución.
+
+```{r}
+
+# Función winsorizar por IQR (1.5 x IQR)
+winsorizar_iqr <- function(df, col_valor){
+  v   <- df[[col_valor]]
+  q1  <- quantile(v, 0.25, na.rm = TRUE)
+  q3  <- quantile(v, 0.75, na.rm = TRUE)
+  iqr <- q3 - q1
+  lim_inf <- q1 - 1.5 * iqr
+  lim_sup <- q3 + 1.5 * iqr
+  df %>%
+    mutate(
+      !!paste0(col_valor, "_winsor") := pmin(pmax(.data[[col_valor]], lim_inf), lim_sup),
+      !!paste0(col_valor, "_log")    := log10(.data[[col_valor]] + 1)  
+    )
+}
+
+# Winsorización por IQR
+resumen_canton_w  <- winsorizar_iqr(resumen_canton_clean,       "frecuencia_de_cantones")
+resumen_delito_w  <- winsorizar_iqr(resumen_delito_clean,        "frecuencia_de_delitos")
+resumen_edad_w    <- winsorizar_iqr(resumen_edad_clean,          "frecuencia_rango_de_edades")
+resumen_nac_w     <- winsorizar_iqr(resumen_nacionalidad_clean,  "frecuencia_de_nacionalidades")
+resumen_prov_w    <- winsorizar_iqr(resumen_provincia_clean,     "frecuencia_de_provincias")
+resumen_sexo_w    <- winsorizar_iqr(resumen_sexo_clean,          "frecuencia_de_sexo")
+resumen_victima_w <- winsorizar_iqr(resumen_victima_clean,       "frecuencia_de_victimas")
+
+#vista rapida
+head(resumen_canton_w)
+head(resumen_delito_w)
+head(resumen_prov_w)
+```
+
+
 ## Bibliografia
 
 \
