@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
-<meta charset="utf-8">
+<script src="Bitacora-2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Bitacora-2_files/libs/quarto-html/quarto.js"></script>
+<script src="Bitacora-2_files/libs/quarto-html/popper.min.js"></script>
+<script src="Bitacora-2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Bitacora-2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Bitacora-2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Bitacora-2_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Bitacora-2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Bitacora-2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Bitacora-2_files/libs/bootstrap/bootstrap-c0367b04c37547644fece4185067e4a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
@@ -75,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Bitacora-2.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Bitacora-2.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Bitacora-2.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -99,6 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="bitácora-2-proyecto-grupal" class="level1">
 <h1>Bitácora 2 Proyecto Grupal</h1>
+<p>La presente bitácora documenta el proceso de análisis, depuración y exploración de los datos correspondientes a los delitos registrados en Costa Rica entre 2019 y julio de 2025, obtenidos del portal de datos abiertos del Poder Judicial. A lo largo del informe se describe el tratamiento de las bases de datos originales, la unificación de variables, la detección de valores faltantes y atípicos, así como la aplicación de técnicas estadísticas para garantizar la coherencia y calidad del conjunto de datos. El objetivo principal es obtener una base limpia y estructurada que permita interpretar con mayor precisión las tendencias delictivas en el país.</p>
 <section id="section" class="level2">
 <h2 class="anchored" data-anchor-id="section">1</h2>
 <section id="características-de-los-datos" class="level3">
@@ -208,7 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">%&gt;%</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(victima, subvictima, edad, sexo, nacionalidad) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(victima <span class="sc">!=</span> <span class="st">"PERSONA"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 5
    victima                 subvictima edad      sexo      nacionalidad
@@ -231,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="section-1">2</h2>
 <p>Se agregan las primeras 5 filas de nuestra base de datos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(datos, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(datos, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 12
   delito subdelito  fecha      hora  victima subvictima edad  sexo  nacionalidad
@@ -251,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Entonces, para afrontar este reto, se realiza una distribucion de frecuencias como la que se ha mostrado anteriormente. De esta manera, se puede analizar, retomando el caso de la edad por ejemplo, la frecuencia de cada categoria. Pero, se analiza cada variable de acuerdo al orden de la base de datos:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>resumen_delito <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_delito.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>resumen_delito</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>resumen_delito</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 2
    delito                            frecuencia_de_delitos
@@ -271,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Estos son los 10 delitos que más frecuencia ha tenido en el pais en los ultimos seis años, aunque no se debe descartar que hay mas de 30 tipos de delitos reportados en los ultimos seis años. Lideran el hurto, asalto, robo, los delitos contra la propiedad y el vehículo como los cinco delitos más frecuentes. Por lo que se puede entender que hay una tendencia hacia los delitos reportados que implican el robo de un bien.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resumen_victima <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_victima.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>resumen_victima</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>resumen_victima</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   victima                 frecuencia_de_victimas
@@ -285,23 +294,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Con respecto a las víctimas, aproximadamente la mitad de las víctimas de los delitos reportados son personas. Note quel total de víctimas de personas se relaciona con los primeros tres delitos más reportados (Hurto, asalto y robo). Seguido de los vehículos (Robo de vehículos), la vivienda y edificaciones (Delitos contra la propiedad) y los otros. Para efectos de esta investigación, el foco de atención se centra en las víctimas que son personas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>resumen_edad <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_edad.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>resumen_edad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 2
-  edad          frecuencia_rango_de_edades
-  &lt;chr&gt;                              &lt;dbl&gt;
-1 NO APLICA                         185975
-2 MAYOR DE EDAD                     132656
-3 MENOR DE EDAD                      10076
-4 ADULTO MAYOR                        9273
-5 DESCONOCIDO                         7085</code></pre>
-</div>
-</div>
-<p>De acuerdo a las frecuencias, se interpretan las mismas como rangos de edad. Más de la mitad de las víctimas no son personas (Como se observa en el cuadro de víctimas), por lo que, las personas mayores de edad son las que más reportan delitos que ocurren en contra de sí mismas. También se puede observar que bajo los mayores de edad, se encuentran los menores; por lo que han habido más de 10 000 víctimas menores de edad en los últimos 6 años. En menor frecuencia los adultos mayores, y por último, más de 7000 casos con edad no registrada.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>resumen_sexo <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_sexo.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>resumen_sexo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" code"=""><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>resumen_sexo <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/processed/resumen_sexo.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>resumen_sexo</span></code></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   sexo        frecuencia_de_sexo
@@ -532,6 +526,214 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="section-5" class="level2">
+<h2 class="anchored" data-anchor-id="section-5">6</h2>
+</section>
+<section id="section-6" class="level2">
+<h2 class="anchored" data-anchor-id="section-6">7</h2>
+<p>Para identificar los valores faltantes, es útil convertir los valores que aparecen como NO APLICA o DESCONOCIDO en verdaderos valores faltantes (NA) solo cuando el valor no tiene sentido en función del tipo de víctima. Para esto se puede modelar una función que detecta NA en cada archivo y genera un reporte de cuántos valores faltan.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>reporte_faltantes_df <span class="ot">&lt;-</span> <span class="cf">function</span>(df, <span class="at">dataset_name =</span> <span class="st">""</span>, <span class="at">etiquetas =</span> <span class="fu">c</span>(<span class="st">"DESCONOCIDO"</span>, <span class="st">"NO APLICA"</span>)){</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  total_rows   <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  na_reales    <span class="ot">&lt;-</span> <span class="fu">sapply</span>(df, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  na_etiquetas <span class="ot">&lt;-</span> <span class="fu">sapply</span>(df, <span class="cf">function</span>(x) <span class="cf">if</span> (<span class="fu">is.character</span>(x)) <span class="fu">sum</span>(x <span class="sc">%in%</span> etiquetas) <span class="cf">else</span> <span class="dv">0</span>L)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">dataset      =</span> dataset_name,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">columna      =</span> <span class="fu">names</span>(df),</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">na_reales    =</span> <span class="fu">as.integer</span>(na_reales),</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">na_etiqueta  =</span> <span class="fu">as.integer</span>(na_etiquetas),</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">na_total     =</span> <span class="fu">as.integer</span>(na_reales <span class="sc">+</span> na_etiquetas),</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_faltante =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> (na_reales <span class="sc">+</span> na_etiquetas) <span class="sc">/</span> <span class="fu">max</span>(total_rows, <span class="dv">1</span>L), <span class="dv">2</span>),</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">row.names =</span> <span class="cn">NULL</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Reportes (uno por cada resumen)</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>reporte_faltantes <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reporte_faltantes_df</span>(resumen_canton,       <span class="st">"resumen_canton"</span>),</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reporte_faltantes_df</span>(resumen_delito,       <span class="st">"resumen_delito"</span>),</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reporte_faltantes_df</span>(resumen_edad,         <span class="st">"resumen_edad"</span>),</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reporte_faltantes_df</span>(resumen_nacionalidad, <span class="st">"resumen_nacionalidad"</span>),</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reporte_faltantes_df</span>(resumen_provincia,    <span class="st">"resumen_provincia"</span>),</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reporte_faltantes_df</span>(resumen_sexo,         <span class="st">"resumen_sexo"</span>),</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reporte_faltantes_df</span>(resumen_victima,      <span class="st">"resumen_victima"</span>)</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar el reporte completo</span></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>reporte_faltantes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                dataset                      columna na_reales na_etiqueta
+1        resumen_canton                       canton         0           0
+2        resumen_canton       frecuencia_de_cantones         0           0
+3        resumen_delito                       delito         0           0
+4        resumen_delito        frecuencia_de_delitos         0           0
+5          resumen_edad                         edad         0           2
+6          resumen_edad   frecuencia_rango_de_edades         0           0
+7  resumen_nacionalidad                 nacionalidad         0           2
+8  resumen_nacionalidad frecuencia_de_nacionalidades         0           0
+9     resumen_provincia                    provincia         0           1
+10    resumen_provincia     frecuencia_de_provincias         0           0
+11         resumen_sexo                         sexo         0           2
+12         resumen_sexo           frecuencia_de_sexo         0           0
+13      resumen_victima                      victima         0           0
+14      resumen_victima       frecuencia_de_victimas         0           0
+   na_total pct_faltante
+1         0          0.0
+2         0          0.0
+3         0          0.0
+4         0          0.0
+5         2         40.0
+6         0          0.0
+7         2         20.0
+8         0          0.0
+9         1         12.5
+10        0          0.0
+11        2         50.0
+12        0          0.0
+13        0          0.0
+14        0          0.0</code></pre>
+</div>
+</div>
+<p>Ahora, para identificar outliers se va a utilizar el método IQR (Interquartile Range o Rango Intercuartílico) la cual es una técnica estadística utilizada para identificar valores atípicos en un conjunto de datos. Un valor se considera outlier si se encuentra fuera de los límites:𝑥&lt; Q1 − 1.5 × IQR o𝑥&gt; Q3 + 1.5 × IQR. Donde IQR=Q3-Q1. Este método es robusto porque no se ve afectado por la asimetría o valores extremos aislados. En este proyecto se utilizará el criterio del 1.5 × IQR, que es el mismo que emplean los gráficos de caja (boxplots) para detectar valores inusualmente altos o bajos en las frecuencias de delitos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Función que detecta outliers por regla IQR </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>outliers_iqr <span class="ot">&lt;-</span> <span class="cf">function</span>(df, id_col, val_col, dataset){</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  v  <span class="ot">&lt;-</span> df[[val_col]]</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(v, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(v, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  iqr <span class="ot">&lt;-</span> q3 <span class="sc">-</span> q1</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  lim_inf <span class="ot">&lt;-</span> q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  lim_sup <span class="ot">&lt;-</span> q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> df[v <span class="sc">&lt;</span> lim_inf <span class="sc">|</span> v <span class="sc">&gt;</span> lim_sup, <span class="fu">c</span>(id_col, val_col), drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(out) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"valor"</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(out, <span class="at">dataset =</span> dataset, <span class="at">.before =</span> <span class="dv">1</span>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicación a cada resumen</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>o_canton    <span class="ot">&lt;-</span> <span class="fu">outliers_iqr</span>(resumen_canton,       <span class="st">"canton"</span>,       <span class="st">"frecuencia_de_cantones"</span>,       <span class="st">"resumen_canton"</span>)</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>o_delito    <span class="ot">&lt;-</span> <span class="fu">outliers_iqr</span>(resumen_delito,       <span class="st">"delito"</span>,       <span class="st">"frecuencia_de_delitos"</span>,        <span class="st">"resumen_delito"</span>)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>o_edad      <span class="ot">&lt;-</span> <span class="fu">outliers_iqr</span>(resumen_edad,         <span class="st">"edad"</span>,         <span class="st">"frecuencia_rango_de_edades"</span>,   <span class="st">"resumen_edad"</span>)</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>o_nacional  <span class="ot">&lt;-</span> <span class="fu">outliers_iqr</span>(resumen_nacionalidad, <span class="st">"nacionalidad"</span>, <span class="st">"frecuencia_de_nacionalidades"</span>, <span class="st">"resumen_nacionalidad"</span>)</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>o_provincia <span class="ot">&lt;-</span> <span class="fu">outliers_iqr</span>(resumen_provincia,    <span class="st">"provincia"</span>,    <span class="st">"frecuencia_de_provincias"</span>,     <span class="st">"resumen_provincia"</span>)</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>o_sexo      <span class="ot">&lt;-</span> <span class="fu">outliers_iqr</span>(resumen_sexo,         <span class="st">"sexo"</span>,         <span class="st">"frecuencia_de_sexo"</span>,           <span class="st">"resumen_sexo"</span>)</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>o_victima   <span class="ot">&lt;-</span> <span class="fu">outliers_iqr</span>(resumen_victima,      <span class="st">"victima"</span>,      <span class="st">"frecuencia_de_victimas"</span>,       <span class="st">"resumen_victima"</span>)</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>outliers_consolidados <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>  o_canton, o_delito, o_edad, o_nacional, o_provincia, o_sexo, o_victima</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>outliers_consolidados</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13 × 3
+   dataset              id            valor
+   &lt;chr&gt;                &lt;chr&gt;         &lt;dbl&gt;
+ 1 resumen_canton       SAN JOSE      62111
+ 2 resumen_canton       ALAJUELA      20569
+ 3 resumen_canton       HEREDIA       12748
+ 4 resumen_canton       CARTAGO       10497
+ 5 resumen_canton       PUNTARENAS    10374
+ 6 resumen_canton       SAN CARLOS    10105
+ 7 resumen_canton       DESAMPARADOS   9999
+ 8 resumen_nacionalidad NO APLICA    185975
+ 9 resumen_nacionalidad COSTA RICA   126959
+10 resumen_provincia    SAN JOSE     129730
+11 resumen_provincia    DESCONOCIDO      29
+12 resumen_sexo         NO APLICA    185975
+13 resumen_victima      PERSONA      159090</code></pre>
+</div>
+</div>
+</section>
+<section id="section-7" class="level2">
+<h2 class="anchored" data-anchor-id="section-7">8</h2>
+<p>Se identificaron anteriormente la presencia de valores vacíos o NA en las bases de datos. Para esto, se aplica una estrategia distinta para diferentes tipos de variables, con el objetivo de obtener una base de datos más limpia y sin cosas innecesarias, el cual se muestra a continuación:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Demográficas: quitar NO APLICA / DESCONOCIDO (para análisis sobre personas)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>resumen_edad_clean <span class="ot">&lt;-</span> resumen_edad <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>edad <span class="sc">%in%</span> lab_na)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>resumen_sexo_clean <span class="ot">&lt;-</span> resumen_sexo <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>sexo <span class="sc">%in%</span> lab_na)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>resumen_nacionalidad_clean <span class="ot">&lt;-</span> resumen_nacionalidad <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>nacionalidad <span class="sc">%in%</span> lab_na)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Territoriales: quitar DESCONOCIDO</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>resumen_provincia_clean <span class="ot">&lt;-</span> resumen_provincia <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>provincia <span class="sc">%in%</span> <span class="st">"DESCONOCIDO"</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>resumen_canton_clean    <span class="ot">&lt;-</span> resumen_canton <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>canton <span class="sc">%in%</span> <span class="st">"DESCONOCIDO"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Delito/Víctima: conservar todo</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>resumen_delito_clean  <span class="ot">&lt;-</span> resumen_delito</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>resumen_victima_clean <span class="ot">&lt;-</span> resumen_victima</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En el punto anterior se observaron muchos outliers, los cual se debe corregir. La winsorización es una técnica estadística utilizada para reducir el efecto de valores extremos sin eliminarlos del conjunto de datos. Consiste en reemplazar los valores que superan los límites definidos (ya sea por percentiles o por el rango intercuartílico) por el valor más cercano dentro de esos límites. En este proyecto se aplicará una winsorización basada en el método IQR (1.5 × IQR), con el fin de suavizar la influencia de los cantones o delitos con frecuencias extremadamente altas, como San José o Hurto, los cuales, aunque representan fenómenos reales, podrían distorsionar la visualización y el análisis estadístico. De esta forma se conserva la información esencial sin perder la coherencia general de la distribución.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Función winsorizar por IQR (1.5 x IQR)</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>winsorizar_iqr <span class="ot">&lt;-</span> <span class="cf">function</span>(df, col_valor){</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  v   <span class="ot">&lt;-</span> df[[col_valor]]</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  q1  <span class="ot">&lt;-</span> <span class="fu">quantile</span>(v, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  q3  <span class="ot">&lt;-</span> <span class="fu">quantile</span>(v, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  iqr <span class="ot">&lt;-</span> q3 <span class="sc">-</span> q1</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  lim_inf <span class="ot">&lt;-</span> q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  lim_sup <span class="ot">&lt;-</span> q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(col_valor, <span class="st">"_winsor"</span>) <span class="sc">:</span><span class="er">=</span> <span class="fu">pmin</span>(<span class="fu">pmax</span>(.data[[col_valor]], lim_inf), lim_sup),</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(col_valor, <span class="st">"_log"</span>)    <span class="sc">:</span><span class="er">=</span> <span class="fu">log10</span>(.data[[col_valor]] <span class="sc">+</span> <span class="dv">1</span>)  </span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Winsorización por IQR</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>resumen_canton_w  <span class="ot">&lt;-</span> <span class="fu">winsorizar_iqr</span>(resumen_canton_clean,       <span class="st">"frecuencia_de_cantones"</span>)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>resumen_delito_w  <span class="ot">&lt;-</span> <span class="fu">winsorizar_iqr</span>(resumen_delito_clean,        <span class="st">"frecuencia_de_delitos"</span>)</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>resumen_edad_w    <span class="ot">&lt;-</span> <span class="fu">winsorizar_iqr</span>(resumen_edad_clean,          <span class="st">"frecuencia_rango_de_edades"</span>)</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>resumen_nac_w     <span class="ot">&lt;-</span> <span class="fu">winsorizar_iqr</span>(resumen_nacionalidad_clean,  <span class="st">"frecuencia_de_nacionalidades"</span>)</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>resumen_prov_w    <span class="ot">&lt;-</span> <span class="fu">winsorizar_iqr</span>(resumen_provincia_clean,     <span class="st">"frecuencia_de_provincias"</span>)</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>resumen_sexo_w    <span class="ot">&lt;-</span> <span class="fu">winsorizar_iqr</span>(resumen_sexo_clean,          <span class="st">"frecuencia_de_sexo"</span>)</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>resumen_victima_w <span class="ot">&lt;-</span> <span class="fu">winsorizar_iqr</span>(resumen_victima_clean,       <span class="st">"frecuencia_de_victimas"</span>)</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="co">#vista rapida</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resumen_canton_w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  canton    frecuencia_de_cantones frecuencia_de_canton…¹ frecuencia_de_canton…²
+  &lt;chr&gt;                      &lt;int&gt;                  &lt;dbl&gt;                  &lt;dbl&gt;
+1 SAN JOSE                   62111                  9518.                   4.79
+2 ALAJUELA                   20569                  9518.                   4.31
+3 HEREDIA                    12748                  9518.                   4.11
+4 CARTAGO                    10497                  9518.                   4.02
+5 PUNTAREN…                  10374                  9518.                   4.02
+6 SAN CARL…                  10105                  9518.                   4.00
+# ℹ abbreviated names: ¹​frecuencia_de_cantones_winsor,
+#   ²​frecuencia_de_cantones_log</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resumen_delito_w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  delito     frecuencia_de_delitos frecuencia_de_delito…¹ frecuencia_de_delito…²
+  &lt;chr&gt;                      &lt;dbl&gt;                  &lt;dbl&gt;                  &lt;dbl&gt;
+1 HURTO                      79231                  79231                   4.90
+2 ASALTO                     67374                  67374                   4.83
+3 ROBO                       55178                  55178                   4.74
+4 DELITOS C…                 45854                  45854                   4.66
+5 ROBO DE V…                 23138                  23138                   4.36
+6 TACHA DE …                 19683                  19683                   4.29
+# ℹ abbreviated names: ¹​frecuencia_de_delitos_winsor,
+#   ²​frecuencia_de_delitos_log</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resumen_prov_w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  provincia frecuencia_de_provin…¹ frecuencia_de_provin…² frecuencia_de_provin…³
+  &lt;chr&gt;                      &lt;dbl&gt;                  &lt;dbl&gt;                  &lt;dbl&gt;
+1 SAN JOSE                  129730                 73983.                   5.11
+2 ALAJUELA                   54118                 54118                    4.73
+3 PUNTAREN…                  41217                 41217                    4.62
+4 LIMON                      32249                 32249                    4.51
+5 HEREDIA                    30854                 30854                    4.49
+6 GUANACAS…                  29394                 29394                    4.47
+# ℹ abbreviated names: ¹​frecuencia_de_provincias,
+#   ²​frecuencia_de_provincias_winsor, ³​frecuencia_de_provincias_log</code></pre>
+</div>
+</div>
+<p>Tras la limpieza y análisis de las bases de datos, se logró identificar patrones relevantes y reducir el impacto de valores atípicos mediante la aplicación de la técnica de winsorización. Esto permitió mantener la integridad de la información sin distorsionar las distribuciones originales. En general, la bitácora refleja un proceso metodológico que asegura la confiabilidad de los datos para futuros análisis estadísticos y geoespaciales sobre la criminalidad en Costa Rica.</p>
 </section>
 <section id="bibliografia" class="level2">
 <h2 class="anchored" data-anchor-id="bibliografia">Bibliografia</h2>
@@ -971,4 +1173,60 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+args) =&gt; {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() =&gt; {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) =&gt; {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) =&gt; {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++)="" {="" const="" ref="bibliorefs[i];" citeinfo="findCites(ref);" if="" (citeinfo)="" tippyhover(citeinfo.el,="" function()="" var="" popup="window.document.createElement('div');" citeinfo.cites.foreach(function(cite)="" citediv="window.document.createElement('div');" citediv.classlist.add('hanging-indent');="" citediv.classlist.add('csl-entry');="" bibliodiv="window.document.getElementById('ref-'" +="" cite);="" (bibliodiv)="" citediv.innerhtml="biblioDiv.innerHTML;" }="" popup.appendchild(citediv);="" });="" return="" popup.innerhtml;="" <="" script="">
+ <!-- /content -->
+
+
+
+
+</bibliorefs.length;></body></html>

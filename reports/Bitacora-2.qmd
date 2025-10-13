@@ -8,6 +8,16 @@ editor: visual
 
 # Bitácora 2 Proyecto Grupal
 
+Integrantes:
+
+- Sebastián Calderón Segura C21517
+- Sebastián Miranda Ramírez C4H274
+- Josué Gustavo Rodríguez Aguilar C4J023
+- Kevin David Calderon Martínez C4D511
+- Santiago Paniagua Chavarría C4I249
+
+La presente bitácora documenta el proceso de análisis, depuración y exploración de los datos correspondientes a los delitos registrados en Costa Rica entre 2019 y julio de 2025, obtenidos del portal de datos abiertos del Poder Judicial. A lo largo del informe se describe el tratamiento de las bases de datos originales, la unificación de variables, la detección de valores faltantes y atípicos, así como la aplicación de técnicas estadísticas para garantizar la coherencia y calidad del conjunto de datos. El objetivo principal es obtener una base limpia y estructurada que permita interpretar con mayor precisión las tendencias delictivas en el país.
+
 ```{r include = FALSE}
 
 #setup
@@ -19,12 +29,11 @@ library(sf)
 library(stringr)
 library(tidyverse)
 
-
-
 ruta <- here("data", "processed", "Estadísticas Policiales 2019 a Julio 2025.csv")
 
 datos <- read_csv(ruta)
 
+lab_na <- c("NO APLICA", "DESCONOCIDO")
 
 # Vista general
 n.filas <- nrow(datos)
@@ -340,6 +349,7 @@ reporte_faltantes
 Ahora, para identificar outliers se va a utilizar el método IQR (Interquartile Range o Rango Intercuartílico) la cual es una técnica estadística utilizada para identificar valores atípicos en un conjunto de datos. Un valor se considera outlier si se encuentra fuera de los límites:𝑥< Q1 − 1.5 × IQR o𝑥> Q3 + 1.5 × IQR. Donde IQR=Q3-Q1.
 Este método es robusto porque no se ve afectado por la asimetría o valores extremos aislados. En este proyecto se utilizará el criterio del 1.5 × IQR, que es el mismo que emplean los gráficos de caja (boxplots) para detectar valores inusualmente altos o bajos en las frecuencias de delitos.
 
+
 ```{r}
 # Función que detecta outliers por regla IQR 
 outliers_iqr <- function(df, id_col, val_col, dataset){
@@ -357,22 +367,20 @@ outliers_iqr <- function(df, id_col, val_col, dataset){
 
 
 # Aplicación a cada resumen
-o_canton    <- outliers_q1q3_std(resumen_canton,       "canton",       "frecuencia_de_cantones",       "resumen_canton")
-o_delito    <- outliers_q1q3_std(resumen_delito,       "delito",       "frecuencia_de_delitos",        "resumen_delito")
-o_edad      <- outliers_q1q3_std(resumen_edad,         "edad",         "frecuencia_rango_de_edades",   "resumen_edad")
-o_nacional  <- outliers_q1q3_std(resumen_nacionalidad, "nacionalidad", "frecuencia_de_nacionalidades", "resumen_nacionalidad")
-o_provincia <- outliers_q1q3_std(resumen_provincia,    "provincia",    "frecuencia_de_provincias",     "resumen_provincia")
-o_sexo      <- outliers_q1q3_std(resumen_sexo,         "sexo",         "frecuencia_de_sexo",           "resumen_sexo")
-o_victima   <- outliers_q1q3_std(resumen_victima,      "victima",      "frecuencia_de_victimas",       "resumen_victima")
+o_canton    <- outliers_iqr(resumen_canton,       "canton",       "frecuencia_de_cantones",       "resumen_canton")
+o_delito    <- outliers_iqr(resumen_delito,       "delito",       "frecuencia_de_delitos",        "resumen_delito")
+o_edad      <- outliers_iqr(resumen_edad,         "edad",         "frecuencia_rango_de_edades",   "resumen_edad")
+o_nacional  <- outliers_iqr(resumen_nacionalidad, "nacionalidad", "frecuencia_de_nacionalidades", "resumen_nacionalidad")
+o_provincia <- outliers_iqr(resumen_provincia,    "provincia",    "frecuencia_de_provincias",     "resumen_provincia")
+o_sexo      <- outliers_iqr(resumen_sexo,         "sexo",         "frecuencia_de_sexo",           "resumen_sexo")
+o_victima   <- outliers_iqr(resumen_victima,      "victima",      "frecuencia_de_victimas",       "resumen_victima")
 
 outliers_consolidados <- bind_rows(
   o_canton, o_delito, o_edad, o_nacional, o_provincia, o_sexo, o_victima
 )
 
 outliers_consolidados
-
 ```
-
 
 ## 8
 
@@ -427,6 +435,7 @@ head(resumen_delito_w)
 head(resumen_prov_w)
 ```
 
+Tras la limpieza y análisis de las bases de datos, se logró identificar patrones relevantes y reducir el impacto de valores atípicos mediante la aplicación de la técnica de winsorización. Esto permitió mantener la integridad de la información sin distorsionar las distribuciones originales. En general, la bitácora refleja un proceso metodológico que asegura la confiabilidad de los datos para futuros análisis estadísticos y geoespaciales sobre la criminalidad en Costa Rica.
 
 ## Bibliografia
 
