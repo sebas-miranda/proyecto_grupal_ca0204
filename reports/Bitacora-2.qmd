@@ -47,11 +47,9 @@ rango.fechas <- range(datos$fecha, na.rm = TRUE)
 
 ```
 
-## 1
+## 1 Características de los datos
 
-### Características de los datos
-
-Se utilizaron las bases de datos de crímenes registrados entre 2019 y julio de 2025, disponibles en el portal de datos del Poder Judicial: <https://sitiooij.poder-judicial.go.cr/index.php/ayuda/servicios-policiales/servicios-a-organizaciones/indice-de-transparencia-del-sector-publico-costarricense/datos-abiertos>.
+Se utilizaron las bases de datos de crímenes registrados entre 2019 y julio de 2025, disponibles en el portal de datos del Organismo de Investigación Judicial (OIJ) (2025)..
 
 En este sentido, estas bases venían separadas por año y presentaban algunas inconsistencias entre ellas. Por ejemplo, entre 2019 y 2023 la variable del sexo se denominaba “género”, mientras que a partir de 2024 pasó a llamarse “sexo”. Asimismo, la columna de fecha aparecía en formato *char* en algunos años y en formato *Date* en otros.
 
@@ -101,7 +99,7 @@ datos %>%
   slice_head(n = 10)
 ```
 
-## 2
+## 2 Muestra Parcial de la Base de Datos
 
 Se agregan las primeras 5 filas de nuestra base de datos:
 
@@ -110,7 +108,7 @@ Se agregan las primeras 5 filas de nuestra base de datos:
 slice_head(datos, n = 5)
 ```
 
-## 3
+## 3 Muestras de las Variables Cualitativas
 
 Uno de los principales retos encontrados en esta base de datos, es que todas las variables de la misma son categóricas. Es decir, no hay ninguna variable cuantitativa. Incluso la variable de edad, se divide en pocas categorias (NO APLICA, ADULTO MAYOR, MAYOR DE EDAD, MENOR DE EDAD, DESCONOCIDO)
 
@@ -158,11 +156,11 @@ resumen_provincia
 
 Acá se puede observar la frecuencia de delitos cometidos de acuerdo a la provincia. Siendo la capital la provincia donde más se reportan delitos, seguido de Alajuela, con una diferencia de reporte de delitos de 75612 casos, una variación muy alta, a diferencia de las siguientes provincias. Por último, Cartago, la provincia donde menos se reportan delitos, y 29 casos de los que no se tiene información.
 
-## 4
+## 4 Gráficos de las Variables
 
-Se ha hecho un grafico de la distribucion de cada tabla de frecuencia. Aca se muestran las mas relevantes
+Se ha hecho un grafico de la distribucion de cada tabla de frecuencia. Aca se muestran las mas relevantes:
 
-Variable delito
+Variable delito:
 
 ```{r}
 grafico_delito <- resumen_delito %>% 
@@ -180,7 +178,7 @@ grafico_delito <- resumen_delito %>%
 grafico_delito
 ```
 
-Variable victima
+Variable víctima:
 
 ```{r}
 grafico_victima <- resumen_victima %>% 
@@ -199,7 +197,7 @@ ggsave(
 grafico_victima
 ```
 
-Variable sexo
+Variable sexo:
 
 ```{r}
 grafico_sexo <- resumen_sexo %>% 
@@ -220,7 +218,7 @@ ggsave(
 grafico_sexo
 ```
 
-Variable canton
+Para el caso de la variable cantón, se utiliza una base de datos geoespacial (Instituto Nacional de Estadística y Censos, 2024). Esta divide poligonalmente el mapa de Costa Rica de acuerdo a los cantones:
 
 ```{r}
 resumen_canton <- datos %>% 
@@ -248,7 +246,7 @@ grafico_cantones <- ggplot(cantones) +
 grafico_cantones
 ```
 
-## 5
+## 5 Comparación de Variables
 
 Al ser variables categoricas, se debe de tener coherencia a la hora de comparar variables.
 
@@ -310,9 +308,9 @@ grafico_sexo_edad <- resumen_sexo_edad %>%
 grafico_sexo_edad
 ```
 
-## 6
-De manera representativa para este caso se realizara un grafico de la variable categorica fecha, pues se considera relevante para el analsis critico en el desarrollo del proyecto conocer la trayectoria de los delitos a travez del tiempo, ademas no se considetan otras varibales pues es reiterativo por el trato de las variables cualitativas.  
+## 6 Gráfico de Variable Fecha
 
+De manera representativa para este caso se realizara un grafico de la variable categorica fecha, pues se considera relevante para el analsis critico en el desarrollo del proyecto conocer la trayectoria de los delitos a travez del tiempo, ademas no se considetan otras varibales pues es reiterativo por el trato de las variables cualitativas:
 
 ```{r}
 #Ahora bien tenemos cargada la base de datos del proyecto, primero verificamos los tipos de variables que posee tal que:
@@ -337,10 +335,9 @@ grafico_fecha_frecuencia <- datos %>%
 grafico_fecha_frecuencia
 ```
 
-
 Tome en cuenta que el proyecto se compone de variables categoricas, que en su mayoria fueron consideradas en los puntos 4 y 5. Por lo tanto para este insiso unicamente se tomo en cuenta las fechas.
 
-## 7
+## 7 Outliers y Valores Vacíos
 
 Para identificar los valores faltantes, es útil convertir los valores que aparecen como NO APLICA o DESCONOCIDO en verdaderos valores faltantes (NA) solo cuando el valor no tiene sentido en función del tipo de víctima. Para esto se puede modelar una función que detecta NA en cada archivo y genera un reporte de cuántos valores faltan.
 
@@ -410,7 +407,7 @@ outliers_consolidados <- bind_rows(
 outliers_consolidados
 ```
 
-## 8
+## 8 Técnicas de Tratamiento para Valores Vacíos y Outliers
 
 Se identificaron anteriormente la presencia de valores vacíos o NA en las bases de datos. Para esto, se aplica una estrategia distinta para diferentes tipos de variables, con el objetivo de obtener una base de datos más limpia y sin cosas innecesarias, el cual se muestra a continuación:
 
@@ -467,13 +464,13 @@ Tras la limpieza y análisis de las bases de datos, se logró identificar patron
 
 ## Bibliografia
 
-\
-[https://rpubs.com/Juve_Campos/ImagenesyMultimediaEnRmarkdown](#0)\
-\
-<https://ggplot2.tidyverse.org/reference/coord_flip.html>\
-\
-<https://es.scribd.com/document/432904420/Paleta-de-Colores-en-R>\
-[\
-https://mapscaping.com/read-write-shapefiles-in-r/](https://mapscaping.com/read-write-shapefiles-in-r/)
+Organismo de Investigación Judicial (OIJ). (2025). *Datos Abiertos*. Organismo de Investigación Judicial. https://sitiooij.poder-judicial.go.cr/index.php/ayuda/servicios-policiales/servicios-a-organizaciones/indice-de-transparencia-del-sector-publico-costarricense/datos-abiertos
 
-<https://r-charts.com/es/espacial/mapa-burbujas/>
+ggplot. (2020). *Cartesian coordinates with x and y flipped*. Gggplot2. https://ggplot2.tidyverse.org/reference/coord_flip.html\
+\
+Milton. (2019). *Paleta de Colores en R*. SCRIBD. https://es.scribd.com/document/432904420/Paleta-de-Colores-en-R\
+QGIS. (2023). *Mapscaping*. Read Write Shapefiles In R. https://mapscaping.com/read-write-shapefiles-in-r/
+
+*Mapas de Cloropletas en R*. (s. f.). Rcharts. https://r-charts.com/es/espacial/mapa-coropletas/
+
+Instituto Nacional de Estadística y Censos. (2024). *Geoportal Estadístico del INEC*. INEC. https://geoportal.inec.go.cr/
