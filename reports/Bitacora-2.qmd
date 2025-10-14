@@ -10,11 +10,11 @@ editor: visual
 
 Integrantes:
 
-- Sebastián Calderón Segura C21517
-- Sebastián Miranda Ramírez C4H274
-- Josué Gustavo Rodríguez Aguilar C4J023
-- Kevin David Calderon Martínez C4D511
-- Santiago Paniagua Chavarría C4I249
+-   Sebastián Calderón Segura C21517
+-   Sebastián Miranda Ramírez C4H274
+-   Josué Gustavo Rodríguez Aguilar C4J023
+-   Kevin David Calderon Martínez C4D511
+-   Santiago Paniagua Chavarría C4I249
 
 La presente bitácora documenta el proceso de análisis, depuración y exploración de los datos correspondientes a los delitos registrados en Costa Rica entre 2019 y julio de 2025, obtenidos del portal de datos abiertos del Poder Judicial. A lo largo del informe se describe el tratamiento de las bases de datos originales, la unificación de variables, la detección de valores faltantes y atípicos, así como la aplicación de técnicas estadísticas para garantizar la coherencia y calidad del conjunto de datos. El objetivo principal es obtener una base limpia y estructurada que permita interpretar con mayor precisión las tendencias delictivas en el país.
 
@@ -28,6 +28,8 @@ library(ggplot2)
 library(sf)
 library(stringr)
 library(tidyverse)
+library(lubridate)
+library(scales)
 
 ruta <- here("data", "processed", "Estadísticas Policiales 2019 a Julio 2025.csv")
 
@@ -309,10 +311,38 @@ grafico_sexo_edad
 ```
 
 ## 6
+De manera representativa para este caso se realizara un grafico de la variable categorica fecha, pues se considera relevante para el analsis critico en el desarrollo del proyecto conocer la trayectoria de los delitos a travez del tiempo, ademas no se considetan otras varibales pues es reiterativo por el trato de las variables cualitativas.  
+
+
+```{r}
+#Ahora bien tenemos cargada la base de datos del proyecto, primero verificamos los tipos de variables que posee tal que:
+str(datos)
+
+#Note que de hecho la totalidad de las variables utilizadas son categoricas por lo que se procede a graficar
+
+grafico_fecha_frecuencia <- datos %>% 
+  mutate(anio = year(fecha)) %>%
+  group_by(anio) %>% 
+  summarise(frecuencia = n()) %>% 
+  mutate(frecuencia_miles = frecuencia / 1000) %>% #Antes el grafico se veia incosistente con los numeros de casos correspondiente por ende decidi trabajar las frecuencias en miles
+  ggplot(aes(x = factor(anio),y = frecuencia_miles,  fill = frecuencia_miles)) +
+  geom_col() +
+  theme_minimal() +
+  labs(
+    x = "Año",
+    y = "Frecuencia de delitos en miles",
+    title = "Cantidad de delitos anuales en miles", 
+    fill = "Delitos en miles"
+  )
+grafico_fecha_frecuencia
+```
+
+
+Tome en cuenta que el proyecto se compone de variables categoricas, que en su mayoria fueron consideradas en los puntos 4 y 5. Por lo tanto para este insiso unicamente se tomo en cuenta las fechas.
 
 ## 7
 
-Para identificar los valores faltantes, es útil convertir los valores que aparecen como NO APLICA o DESCONOCIDO en verdaderos valores faltantes (NA) solo cuando el valor no tiene sentido en función del tipo de víctima. Para esto se puede modelar una función que detecta NA en cada archivo y genera un reporte de cuántos valores faltan. 
+Para identificar los valores faltantes, es útil convertir los valores que aparecen como NO APLICA o DESCONOCIDO en verdaderos valores faltantes (NA) solo cuando el valor no tiene sentido en función del tipo de víctima. Para esto se puede modelar una función que detecta NA en cada archivo y genera un reporte de cuántos valores faltan.
 
 ```{r}
 
@@ -346,9 +376,7 @@ reporte_faltantes <- rbind(
 reporte_faltantes
 ```
 
-Ahora, para identificar outliers se va a utilizar el método IQR (Interquartile Range o Rango Intercuartílico) la cual es una técnica estadística utilizada para identificar valores atípicos en un conjunto de datos. Un valor se considera outlier si se encuentra fuera de los límites:𝑥< Q1 − 1.5 × IQR o𝑥> Q3 + 1.5 × IQR. Donde IQR=Q3-Q1.
-Este método es robusto porque no se ve afectado por la asimetría o valores extremos aislados. En este proyecto se utilizará el criterio del 1.5 × IQR, que es el mismo que emplean los gráficos de caja (boxplots) para detectar valores inusualmente altos o bajos en las frecuencias de delitos.
-
+Ahora, para identificar outliers se va a utilizar el método IQR (Interquartile Range o Rango Intercuartílico) la cual es una técnica estadística utilizada para identificar valores atípicos en un conjunto de datos. Un valor se considera outlier si se encuentra fuera de los límites:𝑥\< Q1 − 1.5 × IQR o𝑥\> Q3 + 1.5 × IQR. Donde IQR=Q3-Q1. Este método es robusto porque no se ve afectado por la asimetría o valores extremos aislados. En este proyecto se utilizará el criterio del 1.5 × IQR, que es el mismo que emplean los gráficos de caja (boxplots) para detectar valores inusualmente altos o bajos en las frecuencias de delitos.
 
 ```{r}
 # Función que detecta outliers por regla IQR 

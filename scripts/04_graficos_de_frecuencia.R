@@ -150,7 +150,7 @@ resumen_canton <- resumen_canton %>%
   
 #Leemos el shp que se descargo en la fuente del INEC
 
-cantones <- st_read("data_raw/shapefiles/unidad_geoestadistica_cantonal_ugec_2024.shp")
+cantones <- st_read("../data_raw/shapefiles/unidad_geoestadistica_cantonal_ugec_2024.shp")
 
 #Hacemos todo mayuscula y sin tilde
 
