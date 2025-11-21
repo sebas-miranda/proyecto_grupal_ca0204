@@ -462,6 +462,16 @@ head(resumen_prov_w)
 
 Tras la limpieza y análisis de las bases de datos, se logró identificar patrones relevantes y reducir el impacto de valores atípicos mediante la aplicación de la técnica de winsorización. Esto permitió mantener la integridad de la información sin distorsionar las distribuciones originales. En general, la bitácora refleja un proceso metodológico que asegura la confiabilidad de los datos para futuros análisis estadísticos y geoespaciales sobre la criminalidad en Costa Rica.
 
+
+## 9 Planteamiento del problema:
+
+Posterior a la limpieza exhausiva de datos, se procede con la pregunta de investigación que funcionará como guía para el análisis del trabajo y darle finalidad a la data tratada, dicha pregunta es:
+
+¿Cómo varía la frecuencia de los principales delitos en Costa Rica entre 2019 y 2025 según la provincia y las características de la víctima (edad y sexo)?
+
+Para dar respuesta a dicha pregunta se procede por relaciones lineales; en este caso, al ser multivariables relacionadas con la frecuencia de delitos, se condensará la respuesta en correlaciones lineales, en específico en la técnica del coeficiente de Pearson, pues identifica qué tan fuerte y en qué dirección se asocian estas variables con los cambios en los delitos a lo largo del tiempo.El mismo se explicara con más detalle  continuación. 
+
+
 ## Bibliografia
 
 Organismo de Investigación Judicial (OIJ). (2025). *Datos Abiertos*. Organismo de Investigación Judicial. https://sitiooij.poder-judicial.go.cr/index.php/ayuda/servicios-policiales/servicios-a-organizaciones/indice-de-transparencia-del-sector-publico-costarricense/datos-abiertos
