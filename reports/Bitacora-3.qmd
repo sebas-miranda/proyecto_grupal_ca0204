@@ -1,0 +1,128 @@
+---
+title: "Bitacora 3"
+format:
+  html: default
+  pdf: default
+editor: visual
+---
+
+# Bitácora 2 Proyecto Grupal
+
+Integrantes:
+
+-   Sebastián Calderón Segura C21517
+-   Sebastián Miranda Ramírez C4H274
+-   Josué Gustavo Rodríguez Aguilar C4J023
+-   Kevin David Calderon Martínez C4D511
+-   Santiago Paniagua Chavarría C4I249
+
+## 1 Planteamiento del problema:
+
+Posterior a la limpieza exhausiva de datos, se procede con la pregunta de investigación que funcionará como guía para el análisis del trabajo y darle finalidad a la data tratada, dicha pregunta es:
+
+¿Cómo varía la frecuencia de los principales delitos en Costa Rica entre 2019 y 2025 según la provincia y las características de la víctima (edad y sexo)?
+
+Para dar respuesta a dicha pregunta se procede por relaciones lineales; en este caso, al ser multivariables relacionadas con la frecuencia de delitos, se condensará la respuesta en correlaciones lineales, en específico en la técnica del coeficiente de Pearson, pues identifica qué tan fuerte y en qué dirección se asocian estas variables con los cambios en los delitos a lo largo del tiempo.El mismo se explicara con más detalle continuación.
+
+## Marco metodológico
+
+### 1. Enfoque y tipo de estudio
+
+El estudio se desarrolla bajo un enfoque cuantitativo, de tipo descriptivo–correlacional, con base en registros administrativos oficiales. Se analizan los delitos cometidos en Costa Rica entre 2019 y 2025 (periodo disponible en la base del OIJ) con el objetivo de identificar patrones de criminalidad por género en los cantones del país y estudiar su relación con variables socioeconómicas como pobreza y desempleo.
+
+La unidad de análisis es el evento delictivo registrado, que luego se agrupa por año, provincia/cantón, sexo y características de la víctima (principalmente edad y sexo). A nivel analítico, se trabaja con unidades agregadas del tipo cantón–año–género, que permiten vincular los delitos con indicadores socioeconómicos oficiales.
+
+### 2. Fuentes de información y bases de datos
+
+Los datos principales de criminalidad provienen de las bases de delitos del Organismo de Investigación Judicial (OIJ) y de las estadísticas policiales consolidadas entre 2019 y julio de 2025. Como apoyo contextual se consideran informes del Observatorio de Seguridad Ciudadana, el Ministerio de Seguridad Pública y los indicadores de desarrollo y género publicados por el PNUD, que incluyen información sobre condiciones socioeconómicas por cantón, como pobreza y desempleo.
+
+### 3. Preparación y limpieza de los datos
+
+Las bases originales se encontraban separadas por año y con diferencias en nombres de variables y formatos (por ejemplo, “género” vs. “sexo”, o fechas en distintos formatos). Estas se unificaron en una sola base de más de 345 000 registros con 12 variables categóricas (delito, subdelito, fecha, hora, víctima, subvíctima, edad, sexo, nacionalidad, provincia, cantón y distrito).
+
+Para mejorar la calidad de los datos se aplicaron los siguientes pasos:
+
+- **Reclasificación de valores “NO APLICA” y “DESCONOCIDO”** como NA cuando no tenían sentido para el tipo de víctima (por ejemplo, edad o sexo asignados a “VIVIENDA” o “VEHÍCULO”).
+- **Construcción de tablas de frecuencias** para todas las variables categóricas (delito, víctima, edad, sexo, nacionalidad, provincia y cantón) y elaboración de gráficos de barras y mapas coropléticos para describir la distribución espacial de los delitos.
+- **Detección de outliers** en las frecuencias mediante el método del rango intercuartílico (IQR) y **winsorización** de los valores extremos (por ejemplo, cantones o provincias con frecuencias muy altas), con el fin de reducir la distorsión que estos pueden generar en los análisis correlacionales sin eliminar información relevante.
+
+A partir de esta base depurada se construyen variables cuantitativas de interés, como frecuencias anuales de delitos por provincia/cantón y sexo, y, cuando la información lo permite, tasas de delitos por población para cada cantón.
+
+
+### 4. Etapas del análisis estadístico
+
+Debido a la forma en que está planteada la pregunta de investigación, el análisis se organiza en tres etapas principales:
+
+#### 4.1. Etapa 1: Frecuencia de delitos a lo largo del tiempo
+
+En la primera etapa se estudia cómo varía la cantidad de delitos entre 2019 y 2025, desagregada por sexo de la víctima y por provincia. Para ello:
+
+- Se agrupan los registros por año, sexo y provincia/cantón.
+- Se elaboran tablas de frecuencia y gráficos para mostrar la evolución temporal de los delitos, distinguiendo entre hombres y mujeres.
+- De esta manera se identifican tendencias generales (incrementos, descensos o estabilidad en el tiempo) y se detectan años críticos para cada grupo.
+
+En esta etapa, el año se trata como una variable cuantitativa (2019, 2020, …, 2025), lo que permite explorar si existe una tendencia lineal entre el paso del tiempo y la frecuencia de delitos.
+
+#### 4.2. Etapa 2: Delitos según características de la víctima (edad y sexo)
+
+La segunda etapa se centra en la relación entre la frecuencia de delitos y las características de la víctima, especialmente edad y sexo.
+
+- Se generan tablas de contingencia que cruzan los rangos de edad (menor de edad, mayor de edad, adulto mayor) y el sexo de la víctima, con el número de delitos registrados.
+- Se calculan porcentajes por grupo (por ejemplo, porcentaje de delitos contra mujeres mayores de edad vs. hombres menores de edad) y se representan mediante gráficos de barras agrupadas o apiladas.
+
+Aunque edad y sexo son variables categóricas, al trabajar con sus frecuencias se obtienen indicadores numéricos que permiten describir qué grupos son más afectados y comparar la carga delictiva entre ellos.
+
+#### 4.3. Etapa 3: Distribución espacial de los delitos por provincias y cantones
+
+En la tercera etapa se analiza la distribución espacial de los delitos.
+
+- Se calcula la frecuencia de delitos por provincia y cantón, separando por sexo de la víctima.
+- Esta información se vincula con un shapefile cantonal del INEC para generar mapas de tipo coroplético que permitan visualizar qué cantones concentran mayores niveles de criminalidad y cómo se distribuyen según género.
+
+Esta etapa es clave para el objetivo de sectorizar la criminalidad y para preparar el terreno del análisis correlacional con variables socioeconómicas.
+
+
+### 5. Análisis correlacional con factores socioeconómicos
+
+Una vez descritos los patrones temporales, demográficos y espaciales, se aborda la parte correlacional de la pregunta de investigación: cómo se relacionan los delitos con la pobreza y el desempleo.
+
+Para ello, se construyen, para cada cantón (y, cuando sea posible, por cantón–año y sexo):
+
+- Un indicador cuantitativo de criminalidad (por ejemplo, frecuencia anual de delitos o tasa de delitos por 100 000 habitantes).
+- Los valores de pobreza y desempleo provenientes de fuentes oficiales (INEC, PNUD u otros informes).
+
+Con estas variables numéricas se aplica el coeficiente de correlación de Pearson para medir la fuerza y dirección de la asociación lineal entre:
+
+- Tasa/frecuencia de delitos y porcentaje de pobreza por cantón.
+- Tasa/frecuencia de delitos y tasa de desempleo por cantón.
+- En algunos casos, se puede calcular el coeficiente por separado para hombres y mujeres, comparando si la relación con pobreza y desempleo es diferente según el género de la víctima.
+
+### 6. Justificación del uso del coeficiente de correlación de Pearson
+
+El coeficiente de correlación de Pearson (r) es una medida estadística que indica qué tan fuerte y en qué dirección se relacionan dos variables cuantitativas. Su valor va de –1 a +1:
+
+- Valores cercanos a +1 indican una relación lineal positiva fuerte (cuando una variable aumenta, la otra también).
+- Valores cercanos a –1 indican una relación lineal negativa fuerte (cuando una sube, la otra tiende a bajar).
+- Valores cerca de 0 sugieren ausencia de relación lineal clara.
+
+En este proyecto se escoge el coeficiente de Pearson por varias razones metodológicas:
+
+1. **Las variables clave se transforman en cuantitativas.**
+   Aunque la base original es categórica, el análisis se realiza sobre frecuencias y tasas de delitos (números reales) y sobre indicadores porcentuales de pobreza y desempleo, que también son variables continuas. Esto hace que Pearson sea apropiado para medir su asociación.
+
+2. **Interesa específicamente la relación lineal.**
+   La pregunta de investigación busca saber si los cantones con mayor pobreza o desempleo tienden a presentar más delitos. Es decir, se quiere saber si, conforme suben los indicadores socioeconómicos negativos, aumentan también las tasas de criminalidad. Esta idea de “sube–sube” o “sube–baja” es justamente lo que captura el coeficiente de Pearson.
+
+3. **Tamaño muestral grande y datos agregados.**
+   Al trabajar con los 82 cantones y varios años, el número de observaciones es suficiente para que las estimaciones de Pearson sean estables. Además, la limpieza previa de datos, el tratamiento de valores faltantes y la winsorización de outliers reducen el impacto de valores extremos que podrían distorsionar la correlación.
+
+4. **Interpretación sencilla para la toma de decisiones.**
+   Pearson ofrece un único número fácil de interpretar:
+
+   - |r| entre 0 y 0,3 ≈ relación débil,
+   - |r| entre 0,3 y 0,6 ≈ relación moderada,
+   - |r| mayor a 0,6 ≈ relación fuerte.
+     Esto facilita explicar los resultados a nivel académico y de política pública (por ejemplo, “la criminalidad tiene una correlación moderada y positiva con la pobreza cantonal”).
+
+5. **Posibilidad de comparar por género.**
+   Al calcular r por separado para hombres y mujeres, se puede evaluar si la relación entre pobreza/desempleo y criminalidad es más fuerte en uno u otro género, respondiendo directamente al enfoque de género del proyecto.
