@@ -42,12 +42,11 @@ Las bases originales se encontraban separadas por año y con diferencias en nomb
 
 Para mejorar la calidad de los datos se aplicaron los siguientes pasos:
 
-- **Reclasificación de valores “NO APLICA” y “DESCONOCIDO”** como NA cuando no tenían sentido para el tipo de víctima (por ejemplo, edad o sexo asignados a “VIVIENDA” o “VEHÍCULO”).
-- **Construcción de tablas de frecuencias** para todas las variables categóricas (delito, víctima, edad, sexo, nacionalidad, provincia y cantón) y elaboración de gráficos de barras y mapas coropléticos para describir la distribución espacial de los delitos.
-- **Detección de outliers** en las frecuencias mediante el método del rango intercuartílico (IQR) y **winsorización** de los valores extremos (por ejemplo, cantones o provincias con frecuencias muy altas), con el fin de reducir la distorsión que estos pueden generar en los análisis correlacionales sin eliminar información relevante.
+-   **Reclasificación de valores “NO APLICA” y “DESCONOCIDO”** como NA cuando no tenían sentido para el tipo de víctima (por ejemplo, edad o sexo asignados a “VIVIENDA” o “VEHÍCULO”).
+-   **Construcción de tablas de frecuencias** para todas las variables categóricas (delito, víctima, edad, sexo, nacionalidad, provincia y cantón) y elaboración de gráficos de barras y mapas coropléticos para describir la distribución espacial de los delitos.
+-   **Detección de outliers** en las frecuencias mediante el método del rango intercuartílico (IQR) y **winsorización** de los valores extremos (por ejemplo, cantones o provincias con frecuencias muy altas), con el fin de reducir la distorsión que estos pueden generar en los análisis correlacionales sin eliminar información relevante.
 
 A partir de esta base depurada se construyen variables cuantitativas de interés, como frecuencias anuales de delitos por provincia/cantón y sexo, y, cuando la información lo permite, tasas de delitos por población para cada cantón.
-
 
 ### 4. Etapas del análisis estadístico
 
@@ -57,9 +56,9 @@ Debido a la forma en que está planteada la pregunta de investigación, el anál
 
 En la primera etapa se estudia cómo varía la cantidad de delitos entre 2019 y 2025, desagregada por sexo de la víctima y por provincia. Para ello:
 
-- Se agrupan los registros por año, sexo y provincia/cantón.
-- Se elaboran tablas de frecuencia y gráficos para mostrar la evolución temporal de los delitos, distinguiendo entre hombres y mujeres.
-- De esta manera se identifican tendencias generales (incrementos, descensos o estabilidad en el tiempo) y se detectan años críticos para cada grupo.
+-   Se agrupan los registros por año, sexo y provincia/cantón.
+-   Se elaboran tablas de frecuencia y gráficos para mostrar la evolución temporal de los delitos, distinguiendo entre hombres y mujeres.
+-   De esta manera se identifican tendencias generales (incrementos, descensos o estabilidad en el tiempo) y se detectan años críticos para cada grupo.
 
 En esta etapa, el año se trata como una variable cuantitativa (2019, 2020, …, 2025), lo que permite explorar si existe una tendencia lineal entre el paso del tiempo y la frecuencia de delitos.
 
@@ -67,8 +66,8 @@ En esta etapa, el año se trata como una variable cuantitativa (2019, 2020, …,
 
 La segunda etapa se centra en la relación entre la frecuencia de delitos y las características de la víctima, especialmente edad y sexo.
 
-- Se generan tablas de contingencia que cruzan los rangos de edad (menor de edad, mayor de edad, adulto mayor) y el sexo de la víctima, con el número de delitos registrados.
-- Se calculan porcentajes por grupo (por ejemplo, porcentaje de delitos contra mujeres mayores de edad vs. hombres menores de edad) y se representan mediante gráficos de barras agrupadas o apiladas.
+-   Se generan tablas de contingencia que cruzan los rangos de edad (menor de edad, mayor de edad, adulto mayor) y el sexo de la víctima, con el número de delitos registrados.
+-   Se calculan porcentajes por grupo (por ejemplo, porcentaje de delitos contra mujeres mayores de edad vs. hombres menores de edad) y se representan mediante gráficos de barras agrupadas o apiladas.
 
 Aunque edad y sexo son variables categóricas, al trabajar con sus frecuencias se obtienen indicadores numéricos que permiten describir qué grupos son más afectados y comparar la carga delictiva entre ellos.
 
@@ -76,11 +75,10 @@ Aunque edad y sexo son variables categóricas, al trabajar con sus frecuencias s
 
 En la tercera etapa se analiza la distribución espacial de los delitos.
 
-- Se calcula la frecuencia de delitos por provincia y cantón, separando por sexo de la víctima.
-- Esta información se vincula con un shapefile cantonal del INEC para generar mapas de tipo coroplético que permitan visualizar qué cantones concentran mayores niveles de criminalidad y cómo se distribuyen según género.
+-   Se calcula la frecuencia de delitos por provincia y cantón, separando por sexo de la víctima.
+-   Esta información se vincula con un shapefile cantonal del INEC para generar mapas de tipo coroplético que permitan visualizar qué cantones concentran mayores niveles de criminalidad y cómo se distribuyen según género.
 
 Esta etapa es clave para el objetivo de sectorizar la criminalidad y para preparar el terreno del análisis correlacional con variables socioeconómicas.
-
 
 ### 5. Análisis correlacional con factores socioeconómicos
 
@@ -88,41 +86,47 @@ Una vez descritos los patrones temporales, demográficos y espaciales, se aborda
 
 Para ello, se construyen, para cada cantón (y, cuando sea posible, por cantón–año y sexo):
 
-- Un indicador cuantitativo de criminalidad (por ejemplo, frecuencia anual de delitos o tasa de delitos por 100 000 habitantes).
-- Los valores de pobreza y desempleo provenientes de fuentes oficiales (INEC, PNUD u otros informes).
+-   Un indicador cuantitativo de criminalidad (por ejemplo, frecuencia anual de delitos o tasa de delitos por 100 000 habitantes).
+-   Los valores de pobreza y desempleo provenientes de fuentes oficiales (INEC, PNUD u otros informes).
 
 Con estas variables numéricas se aplica el coeficiente de correlación de Pearson para medir la fuerza y dirección de la asociación lineal entre:
 
-- Tasa/frecuencia de delitos y porcentaje de pobreza por cantón.
-- Tasa/frecuencia de delitos y tasa de desempleo por cantón.
-- En algunos casos, se puede calcular el coeficiente por separado para hombres y mujeres, comparando si la relación con pobreza y desempleo es diferente según el género de la víctima.
+-   Tasa/frecuencia de delitos y porcentaje de pobreza por cantón.
+-   Tasa/frecuencia de delitos y tasa de desempleo por cantón.
+-   En algunos casos, se puede calcular el coeficiente por separado para hombres y mujeres, comparando si la relación con pobreza y desempleo es diferente según el género de la víctima.
 
 ### 6. Justificación del uso del coeficiente de correlación de Pearson
 
 El coeficiente de correlación de Pearson (r) es una medida estadística que indica qué tan fuerte y en qué dirección se relacionan dos variables cuantitativas. Su valor va de –1 a +1:
 
-- Valores cercanos a +1 indican una relación lineal positiva fuerte (cuando una variable aumenta, la otra también).
-- Valores cercanos a –1 indican una relación lineal negativa fuerte (cuando una sube, la otra tiende a bajar).
-- Valores cerca de 0 sugieren ausencia de relación lineal clara.
+-   Valores cercanos a +1 indican una relación lineal positiva fuerte (cuando una variable aumenta, la otra también).
+-   Valores cercanos a –1 indican una relación lineal negativa fuerte (cuando una sube, la otra tiende a bajar).
+-   Valores cerca de 0 sugieren ausencia de relación lineal clara.
 
 En este proyecto se escoge el coeficiente de Pearson por varias razones metodológicas:
 
-1. **Las variables clave se transforman en cuantitativas.**
-   Aunque la base original es categórica, el análisis se realiza sobre frecuencias y tasas de delitos (números reales) y sobre indicadores porcentuales de pobreza y desempleo, que también son variables continuas. Esto hace que Pearson sea apropiado para medir su asociación.
+1.  **Las variables clave se transforman en cuantitativas.** Aunque la base original es categórica, el análisis se realiza sobre frecuencias y tasas de delitos (números reales) y sobre indicadores porcentuales de pobreza y desempleo, que también son variables continuas. Esto hace que Pearson sea apropiado para medir su asociación.
 
-2. **Interesa específicamente la relación lineal.**
-   La pregunta de investigación busca saber si los cantones con mayor pobreza o desempleo tienden a presentar más delitos. Es decir, se quiere saber si, conforme suben los indicadores socioeconómicos negativos, aumentan también las tasas de criminalidad. Esta idea de “sube–sube” o “sube–baja” es justamente lo que captura el coeficiente de Pearson.
+2.  **Interesa específicamente la relación lineal.** La pregunta de investigación busca saber si los cantones con mayor pobreza o desempleo tienden a presentar más delitos. Es decir, se quiere saber si, conforme suben los indicadores socioeconómicos negativos, aumentan también las tasas de criminalidad. Esta idea de “sube–sube” o “sube–baja” es justamente lo que captura el coeficiente de Pearson.
 
-3. **Tamaño muestral grande y datos agregados.**
-   Al trabajar con los 82 cantones y varios años, el número de observaciones es suficiente para que las estimaciones de Pearson sean estables. Además, la limpieza previa de datos, el tratamiento de valores faltantes y la winsorización de outliers reducen el impacto de valores extremos que podrían distorsionar la correlación.
+3.  **Tamaño muestral grande y datos agregados.** Al trabajar con los 82 cantones y varios años, el número de observaciones es suficiente para que las estimaciones de Pearson sean estables. Además, la limpieza previa de datos, el tratamiento de valores faltantes y la winsorización de outliers reducen el impacto de valores extremos que podrían distorsionar la correlación.
 
-4. **Interpretación sencilla para la toma de decisiones.**
-   Pearson ofrece un único número fácil de interpretar:
+4.  **Interpretación sencilla para la toma de decisiones.** Pearson ofrece un único número fácil de interpretar:
 
-   - |r| entre 0 y 0,3 ≈ relación débil,
-   - |r| entre 0,3 y 0,6 ≈ relación moderada,
-   - |r| mayor a 0,6 ≈ relación fuerte.
-     Esto facilita explicar los resultados a nivel académico y de política pública (por ejemplo, “la criminalidad tiene una correlación moderada y positiva con la pobreza cantonal”).
+    -   \|r\| entre 0 y 0,3 ≈ relación débil,
+    -   \|r\| entre 0,3 y 0,6 ≈ relación moderada,
+    -   \|r\| mayor a 0,6 ≈ relación fuerte. Esto facilita explicar los resultados a nivel académico y de política pública (por ejemplo, “la criminalidad tiene una correlación moderada y positiva con la pobreza cantonal”).
 
-5. **Posibilidad de comparar por género.**
-   Al calcular r por separado para hombres y mujeres, se puede evaluar si la relación entre pobreza/desempleo y criminalidad es más fuerte en uno u otro género, respondiendo directamente al enfoque de género del proyecto.
+5.  **Posibilidad de comparar por género.** Al calcular r por separado para hombres y mujeres, se puede evaluar si la relación entre pobreza/desempleo y criminalidad es más fuerte en uno u otro género, respondiendo directamente al enfoque de género del proyecto.
+
+## Limitaciones
+
+-   Las bases de datos del OIJ no venían de forma unificada; sino separadas por año, y además presentaban diferencias en nombres de columnas y extensiones. Por lo tanto se tuvo que crear un script para leer cada año, estandarizar variables y unir todo en una sola base. Aunque esto permitió tener una base de datos unificada, cualquier error manual durante este proceso (sobre todo porque se realizó al inicio del proyecto) podría haber afectado los resultados.
+
+-   Debido a que las bases de datos traía información de sexo, nacionalidad, edad o subvíctima aún cuando la víctima no era persona (por ejemplo, era un vehículo, vivienda, o empresa) se decidió cambiar todas esas variables a "NO APLICA". Esto tiene lógica, pues el mismo OIJ aclara que dichas variables describen específicamente a la víctima, y objetos no tienen ni edad ni sexo. Sin embargo, esto también implica que, si por alguna razón en algún registro se había anotado información adicional, como datos del dueño del bien afectado, esa información se pierde.
+
+-   Como el archivo solo llega hasta julio de 2025, el año se presenta con menos observaciones, lo que a primera vista puede hacer parecer que hubo menos criminalidad en dicho año, cuando en realidad es simplemente que no está completo.
+
+-   Se aplicó winsonorización para reducir el impacto de los valores extremadamente altos, lo que, aunque mejora la uniformidad (sobretodo en los gráficos), también modifica artificialmente las frecuencias más altas, lo que hace que los datos de cantones con delitos muy altos sean atenuados, subestimando así la concentración de los delitos en estas zonas.
+
+-   Durante el análisis se usó la división cantonal correspondiente a 2024 para hacer los mapas, pero los años abarcan desde 2019. En esos años hubieron cambios a nivel cantonal, como la creación de Monteverde y Puerto Jiménez como cantones. Esto implica que en los primeros años dichos cantones no tendrán datos registrados en los mapas, pues esos datos se registraron sobre el cantón al que pertenecían antiguamente. Por tanto, en el análisis de los cantones que sufrieron este fénomeno se debe tener especial cuidado.
