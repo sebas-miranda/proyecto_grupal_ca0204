@@ -6,7 +6,7 @@ format:
 editor: visual
 ---
 
-# Bitácora 2 Proyecto Grupal
+# Bitácora 3 Proyecto Grupal
 
 Integrantes:
 
@@ -56,7 +56,7 @@ Debido a la forma en que está planteada la pregunta de investigación, el anál
 
 En la primera etapa se estudia cómo varía la cantidad de delitos entre 2019 y 2025, desagregada por sexo de la víctima y por provincia. Para ello:
 
--   Se agrupan los registros por año, sexo y provincia/cantón.
+-   Se agrupan los registros por año, sexo y provincia.
 -   Se elaboran tablas de frecuencia y gráficos para mostrar la evolución temporal de los delitos, distinguiendo entre hombres y mujeres.
 -   De esta manera se identifican tendencias generales (incrementos, descensos o estabilidad en el tiempo) y se detectan años críticos para cada grupo.
 
@@ -75,25 +75,44 @@ Aunque edad y sexo son variables categóricas, al trabajar con sus frecuencias s
 
 En la tercera etapa se analiza la distribución espacial de los delitos.
 
--   Se calcula la frecuencia de delitos por provincia y cantón, separando por sexo de la víctima.
+-   Se calcula la frecuencia de delitos por cantón, separando por sexo de la víctima.
 -   Esta información se vincula con un shapefile cantonal del INEC para generar mapas de tipo coroplético que permitan visualizar qué cantones concentran mayores niveles de criminalidad y cómo se distribuyen según género.
 
 Esta etapa es clave para el objetivo de sectorizar la criminalidad y para preparar el terreno del análisis correlacional con variables socioeconómicas.
 
 ### 5. Análisis correlacional con factores socioeconómicos
 
-Una vez descritos los patrones temporales, demográficos y espaciales, se aborda la parte correlacional de la pregunta de investigación: cómo se relacionan los delitos con la pobreza y el desempleo.
+Después de caracterizar los patrones temporales, demográficos y espaciales de la criminalidad, se realizó un análisis correlacional con el objetivo de explorar si las tasas de victimización nacionales presentan alguna asociación con indicadores de desarrollo humano y condiciones educativas de la población.
 
-Para ello, se construyen, para cada cantón (y, cuando sea posible, por cantón–año y sexo):
+Dado que no fue posible obtener datos cantonales completos de pobreza ni desempleo para todos los años del periodo 2019–2025, el análisis se centró en aquellas variables socioeconómicas disponibles para todos los cantones y que cuentan con series temporales consistentes a nivel nacional. Estas variables provienen del PNUD y del INEC e incluyen:
 
--   Un indicador cuantitativo de criminalidad (por ejemplo, frecuencia anual de delitos o tasa de delitos por 100 000 habitantes).
--   Los valores de pobreza y desempleo provenientes de fuentes oficiales (INEC, PNUD u otros informes).
+-   IDG-D: Índice de Desarrollo de Género desagregado.
 
-Con estas variables numéricas se aplica el coeficiente de correlación de Pearson para medir la fuerza y dirección de la asociación lineal entre:
+-   IDH: Índice de Desarrollo Humano.
 
--   Tasa/frecuencia de delitos y porcentaje de pobreza por cantón.
--   Tasa/frecuencia de delitos y tasa de desempleo por cantón.
--   En algunos casos, se puede calcular el coeficiente por separado para hombres y mujeres, comparando si la relación con pobreza y desempleo es diferente según el género de la víctima.
+-   IDH-D: Índice de Desarrollo Humano desagregado.
+
+-   Escolaridad femenina: porcentaje de mujeres con al menos educación secundaria.
+
+-   Escolaridad masculina: porcentaje de hombres con al menos educación secundaria.
+
+Para cada año, se construyeron las tasas nacionales de delitos por cada 100 000 habitantes, desagregadas por sexo, a partir de:
+
+-   La frecuencia anual de víctimas hombres y mujeres.
+
+-   La población total estimada del país.
+
+Con estas variables se generó una matriz de correlaciones utilizando el coeficiente de Pearson, el cual permite medir la fuerza y dirección de la asociación lineal entre:
+
+-   La tasa nacional de víctimas hombres (por 100 000 habitantes).
+
+-   La tasa nacional de víctimas mujeres (por 100 000 habitantes).
+
+-   Los indicadores IDH, IDH-D, IDG-D.
+
+-   Los niveles promedio de escolaridad por sexo.
+
+El análisis se centra en identificar si los niveles de desarrollo humano, equidad de género y escolaridad presentan alguna relación estadística con el comportamiento de las tasas de criminalidad durante el periodo 2019–2023.
 
 ### 6. Justificación del uso del coeficiente de correlación de Pearson
 
@@ -105,11 +124,11 @@ El coeficiente de correlación de Pearson (r) es una medida estadística que ind
 
 En este proyecto se escoge el coeficiente de Pearson por varias razones metodológicas:
 
-1.  **Las variables clave se transforman en cuantitativas.** Aunque la base original es categórica, el análisis se realiza sobre frecuencias y tasas de delitos (números reales) y sobre indicadores porcentuales de pobreza y desempleo, que también son variables continuas. Esto hace que Pearson sea apropiado para medir su asociación.
+1.  **Las variables clave se transforman en cuantitativas.** Las tasas de victimización por cada 100 000 habitantes para hombres y mujeres son variables continuas, al igual que los indicadores socioeconómicos incluidos: IDH, IDH-D, IDG-D y porcentajes de escolaridad. Esto permite aplicar el coeficiente de Pearson.
 
-2.  **Interesa específicamente la relación lineal.** La pregunta de investigación busca saber si los cantones con mayor pobreza o desempleo tienden a presentar más delitos. Es decir, se quiere saber si, conforme suben los indicadores socioeconómicos negativos, aumentan también las tasas de criminalidad. Esta idea de “sube–sube” o “sube–baja” es justamente lo que captura el coeficiente de Pearson.
+2.  **Interesa específicamente la relación lineal.** El propósito del análisis es determinar si variaciones en el nivel de desarrollo humano o en la escolaridad se asocian con aumentos o disminuciones en las tasas de criminalidad. Este tipo de relación —del tipo “a mayor desarrollo, menor tasa” o “a mayor escolaridad, menor criminalidad”— corresponde a una relación lineal, precisamente la que Pearson está diseñado para medir.
 
-3.  **Tamaño muestral grande y datos agregados.** Al trabajar con los 82 cantones y varios años, el número de observaciones es suficiente para que las estimaciones de Pearson sean estables. Además, la limpieza previa de datos, el tratamiento de valores faltantes y la winsorización de outliers reducen el impacto de valores extremos que podrían distorsionar la correlación.
+3.  **Tamaño muestral grande y datos agregados.** Aunque el análisis se realiza a nivel nacional (una observación por año), las series disponibles son consistentes y comparables entre sí, lo cual permite explorar tendencias generales. Además, la estandarización de las tasas y el uso de promedios cantonales de IDH, IDH-D y escolaridad reducen la variabilidad extrema y mejoran la estabilidad de las correlaciones estimadas.
 
 4.  **Interpretación sencilla para la toma de decisiones.** Pearson ofrece un único número fácil de interpretar:
 
@@ -117,16 +136,24 @@ En este proyecto se escoge el coeficiente de Pearson por varias razones metodol�
     -   \|r\| entre 0,3 y 0,6 ≈ relación moderada,
     -   \|r\| mayor a 0,6 ≈ relación fuerte. Esto facilita explicar los resultados a nivel académico y de política pública (por ejemplo, “la criminalidad tiene una correlación moderada y positiva con la pobreza cantonal”).
 
-5.  **Posibilidad de comparar por género.** Al calcular r por separado para hombres y mujeres, se puede evaluar si la relación entre pobreza/desempleo y criminalidad es más fuerte en uno u otro género, respondiendo directamente al enfoque de género del proyecto.
+5.  **Posibilidad de comparar por género.** El cálculo de correlaciones separadas para las tasas de víctimas hombres y de víctimas mujeres facilita identificar si los indicadores de desarrollo humano se relacionan de manera distinta con la criminalidad según el género. Esto fortalece el enfoque de género del proyecto y permite identificar patrones específicos de vulnerabilidad.
+
+## Conclusiones
+
+El análisis de la evolución anual de las víctimas revela que el año 2019 concentra los niveles más altos de criminalidad tanto para hombres como para mujeres. En 2020 se observa un descenso significativo en todas las provincias, probablemente influenciado por las restricciones de movilidad durante la pandemia, lo cual redujo las oportunidades delictivas. A partir de 2021 se identificó un repunte progresivo que alcanza picos en 2023 o 2024 según la provincia. En todo el periodo, los hombres presentan sistemáticamente niveles más altos de victimización que las mujeres, aunque ambos grupos siguen tendencias muy similares. El aparente descenso en 2025 debe interpretarse con cautela, pues corresponde a un año con registros incompletos (enero–julio). Estos resultados muestran que la dinámica delictiva no es aleatoria, sino que sigue ciclos temporales que responden tanto a factores sociales como a condiciones extraordinarias.
+
+Al desagregar los delitos según sexo y rangos de edad, se observa que la mayoría de víctimas corresponden a personas mayores de edad, seguidas (a una distancia considerable) por menores de edad y adultos mayores. En todas las categorías etarias, los hombres representan la mayor proporción de víctimas, aunque las mujeres mantienen una presencia significativa, especialmente en los grupos mayoritarios. Por otra parte, los mapas cantonales muestran que la criminalidad no se distribuye homogéneamente en el territorio nacional. La mayor concentración de delitos se ubica en zonas urbanas densamente pobladas, particularmente en el Gran Área Metropolitana, mientras que regiones periféricas presentan niveles notablemente menores. Estos patrones geográficos revelan desigualdades territoriales que deben considerarse al formular estrategias de prevención y políticas públicas.
+
+Como última conclusión, la correlación entre las tasas nacionales de delitos por sexo y los indicadores encontrados (IDH-H, IDG-G y escolaridad hasta al menos la secundaria por sexo) sugiere que sí existe una relación lineal entre el nivel de desarrollo del país y la evolución general de la criminalidad entre 2019 y 2023. Sin embargo, estas asociaciones deben entenderse con su debida cautela. Pues solo se encuentra una observación general por año, y la falta de indicadores genwrales de pobreza o desempleo a nivel cantonal, en resumen, falta de información. De todas formas, los resultados sugieren que la escolaridad también podría estar relacionada con la dinámica delictiva y que estos deben seguir siendo estudiados con mayor profundidad y con información actualizada. Se concluye en general que la seguridad y el bienestar social no han de ser fenómenos aislados, sino dimensiones correlacionadas que influyen conjuntamente en la realidad delictiva de Costa Rica.
 
 ## Limitaciones
 
--   Las bases de datos del OIJ no venían de forma unificada; sino separadas por año, y además presentaban diferencias en nombres de columnas y extensiones. Por lo tanto se tuvo que crear un script para leer cada año, estandarizar variables y unir todo en una sola base. Aunque esto permitió tener una base de datos unificada, cualquier error manual durante este proceso (sobre todo porque se realizó al inicio del proyecto) podría haber afectado los resultados.
+Las bases de datos del OIJ no venían de forma unificada; sino separadas por año, y además presentaban diferencias en nombres de columnas y extensiones. Por lo tanto se tuvo que crear un script para leer cada año, estandarizar variables y unir todo en una sola base. Aunque esto permitió tener una base de datos unificada, cualquier error manual durante este proceso (sobre todo porque se realizó al inicio del proyecto) podría haber afectado los resultados.
 
--   Debido a que las bases de datos traía información de sexo, nacionalidad, edad o subvíctima aún cuando la víctima no era persona (por ejemplo, era un vehículo, vivienda, o empresa) se decidió cambiar todas esas variables a "NO APLICA". Esto tiene lógica, pues el mismo OIJ aclara que dichas variables describen específicamente a la víctima, y objetos no tienen ni edad ni sexo. Sin embargo, esto también implica que, si por alguna razón en algún registro se había anotado información adicional, como datos del dueño del bien afectado, esa información se pierde.
+Debido a que las bases de datos traía información de sexo, nacionalidad, edad o subvíctima aún cuando la víctima no era persona (por ejemplo, era un vehículo, vivienda, o empresa) se decidió cambiar todas esas variables a "NO APLICA". Esto tiene lógica, pues el mismo OIJ aclara que dichas variables describen específicamente a la víctima, y objetos no tienen ni edad ni sexo. Sin embargo, esto también implica que, si por alguna razón en algún registro se había anotado información adicional, como datos del dueño del bien afectado, esa información se pierde.
 
--   Como el archivo solo llega hasta julio de 2025, el año se presenta con menos observaciones, lo que a primera vista puede hacer parecer que hubo menos criminalidad en dicho año, cuando en realidad es simplemente que no está completo.
+Como el archivo solo llega hasta julio de 2025, el año se presenta con menos observaciones, lo que a primera vista puede hacer parecer que hubo menos criminalidad en dicho año, cuando en realidad es simplemente que no está completo.
 
--   Se aplicó winsonorización para reducir el impacto de los valores extremadamente altos, lo que, aunque mejora la uniformidad (sobretodo en los gráficos), también modifica artificialmente las frecuencias más altas, lo que hace que los datos de cantones con delitos muy altos sean atenuados, subestimando así la concentración de los delitos en estas zonas.
+Se aplicó winsonorización para reducir el impacto de los valores extremadamente altos, lo que, aunque mejora la uniformidad (sobretodo en los gráficos), también modifica artificialmente las frecuencias más altas, lo que hace que los datos de cantones con delitos muy altos sean atenuados, subestimando así la concentración de los delitos en estas zonas.
 
--   Durante el análisis se usó la división cantonal correspondiente a 2024 para hacer los mapas, pero los años abarcan desde 2019. En esos años hubieron cambios a nivel cantonal, como la creación de Monteverde y Puerto Jiménez como cantones. Esto implica que en los primeros años dichos cantones no tendrán datos registrados en los mapas, pues esos datos se registraron sobre el cantón al que pertenecían antiguamente. Por tanto, en el análisis de los cantones que sufrieron este fénomeno se debe tener especial cuidado.
+Durante el análisis se usó la división cantonal correspondiente a 2024 para hacer los mapas, pero los años abarcan desde 2019. En esos años hubieron cambios a nivel cantonal, como la creación de Monteverde y Puerto Jiménez como cantones. Esto implica que en los primeros años dichos cantones no tendrán datos registrados en los mapas, pues esos datos se registraron sobre el cantón al que pertenecían antiguamente. Por tanto, en el análisis de los cantones que sufrieron este fénomeno se debe tener especial cuidado.
