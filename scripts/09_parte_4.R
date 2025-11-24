@@ -1,0 +1,213 @@
+library(readr)
+library(dplyr)
+library(lubridate)
+library(stringr)
+library(tidyr)
+library(here)
+library(tidyverse)
+library(sf)
+library(stringr)
+
+datos <- read_csv(here("data", "processed", "Estadísticas Policiales 2019 a Julio 2025.csv"))
+
+### 4.1
+
+sexo_victimas_anio <- datos %>% 
+  filter(sexo %in% c("HOMBRE", "MUJER")) %>% 
+  mutate(anio = year(fecha)) %>% 
+  group_by(anio, sexo) %>% 
+  summarise(conteo = n(), .groups = "drop") %>% 
+  pivot_wider(names_from = sexo,
+              values_from = conteo,
+              values_fill = 0) %>% 
+  rename(
+    hombres = HOMBRE,
+    mujeres = MUJER
+  )
+long_sexo <- sexo_victimas_anio %>% 
+  pivot_longer(cols = c(hombres, mujeres),
+               names_to = "sexo",
+               values_to = "conteo")
+grafico_victimas_año_sexo <- ggplot(long_sexo, aes(x = anio, y = conteo, color = sexo)) +
+  geom_line(size = 1.4) +
+  geom_point(size = 2) +
+  geom_text(
+    data = subset(long_sexo, anio == 2019),
+    aes(label = conteo),
+    nudge_x = 0.30,   # mueve el número a la derecha
+    nudge_y = 0,      
+    size = 4,
+    fontface = "bold",
+    show.legend = FALSE
+  ) +
+  geom_text(
+    data = subset(long_sexo, anio != 2019),
+    aes(label = conteo),
+    nudge_x = 0.10,  
+    nudge_y = 0,
+    vjust = -2,
+    size = 4,
+    fontface = "bold",
+    show.legend = FALSE
+  ) +
+  facet_wrap(~sexo, ncol = 1, scales = "free_y") +
+  scale_x_continuous(breaks = 2019:2025) +
+  scale_color_manual(values = c("hombres" = "#1f77b4", 
+                                "mujeres" = "#e15759")) +
+  labs(
+    title = "Evolución anual de víctimas por sexo 2019–2025",
+    x = "Año",
+    y = "Cantidad de víctimas"
+  ) +
+  theme_minimal(base_size = 15) +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(size = 16, face = "bold"),
+    plot.margin = margin(20, 20, 20, 20)
+  )
+ggsave(
+  filename = here("info", "graphics", "grafico_victimas_año_sexo.png"),
+  plot = grafico_victimas_año_sexo, 
+  width = 15, height =10,dpi=200
+)
+
+
+### 4.2
+
+tabla_edad_sexo<- datos  %>%
+  filter(sexo %in% c("HOMBRE", "MUJER")) %>%
+  mutate(año = year(fecha)) %>%
+  group_by(edad, sexo) %>%
+  summarise(conteo = n(), .groups = "drop") %>%
+  pivot_wider(
+    names_from = sexo,
+    values_from = conteo,
+    values_fill = 0
+  ) %>%
+  rename(
+    hombres = HOMBRE,
+    mujeres = MUJER
+  )
+
+tabla_edad_sexo <- tabla_edad_sexo %>%
+  rowwise() %>%
+  mutate(
+    total = hombres + mujeres,
+    pct_hombres = round(hombres / total * 100, 2),
+    pct_mujeres = round(mujeres / total * 100, 2)
+  ) %>%
+  ungroup()
+
+tabla_edad_sexo <- tabla_edad_sexo %>%
+  mutate(
+    pct_hombres_col = round(hombres / sum(hombres) * 100, 2),
+    pct_mujeres_col = round(mujeres / sum(mujeres) * 100, 2)
+  )
+
+tabla_edad_sexo <- as.data.frame(tabla_edad_sexo)
+
+tabla_edad_sexo$total <- tabla_edad_sexo$hombres + tabla_edad_sexo$mujeres
+tabla_edad_sexo$pct_hombres <- round(tabla_edad_sexo$hombres / tabla_edad_sexo$total * 100, 2)
+tabla_edad_sexo$pct_mujeres <- round(tabla_edad_sexo$mujeres / tabla_edad_sexo$total * 100, 2)
+
+tabla_edad_sexo$pct_hombres_col <- round(tabla_edad_sexo$hombres / sum(tabla_edad_sexo$hombres) * 100, 2)
+tabla_edad_sexo$pct_mujeres_col <- round(tabla_edad_sexo$mujeres / sum(tabla_edad_sexo$mujeres) * 100, 2)
+
+#pct_(sexo): Es el porcentaje de ese sexo dentro de ese grupo de edad
+#pct_(sexo)_col: Porcentaje de todos los de ese sexo que pertenecen a ese grupo de edad.
+
+# Gráfico: Frecuencia de delitos según edad y sexo
+tabla_larga <- tabla_edad_sexo %>%
+  pivot_longer(cols = c("hombres", "mujeres"), names_to = "sexo", values_to = "conteo")
+
+grafico_delito_edad_sexo <- ggplot(tabla_larga, aes(x = edad, y = conteo, fill = sexo)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_manual(values = c("hombres" = "steelblue", "mujeres" = "pink")) +
+  labs(title = "Frecuencia de delitos según edad y sexo",
+       x = "Grupo de edad", y = "Número de víctimas") +
+  theme_minimal()
+
+ggsave(
+  filename = here("info", "graphics", "grafico_delito_edad_sexo.png"),
+  plot = grafico_delito_edad_sexo, 
+  width = 15, height =10,dpi=200
+)
+
+#Grafico: Distribución porcentual de sexo por grupo de edad
+tabla_pct <- tabla_edad_sexo %>%
+  select(edad, pct_hombres, pct_mujeres) %>%
+  pivot_longer(cols = starts_with("pct"), names_to = "sexo", values_to = "porcentaje") %>%
+  mutate(sexo = ifelse(sexo == "pct_hombres", "Hombre", "Mujer"))
+
+grafico_distribucion_sexo_edad <-  ggplot(tabla_pct, aes(x = edad, y = porcentaje, fill = sexo)) +
+  geom_bar(stat = "identity", position = "fill") +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  scale_fill_manual(values = c("Hombre" = "steelblue", "Mujer" = "pink")) +
+  labs(title = "Distribución porcentual de sexo por grupo de edad",
+       x = "Grupo de edad", y = "Porcentaje") +
+  theme_minimal()
+
+ggsave(
+  filename = here("info", "graphics", "grafico_distribucion_sexo_edad.png"),
+  plot = grafico_distribucion_sexo_edad, 
+  width = 15, height =10,dpi=200
+)
+
+### 4.3
+
+df1 <- datos  %>%
+  filter(sexo %in% c("HOMBRE", "MUJER")) %>%
+  mutate(año = year(fecha)) %>%
+  group_by(canton, sexo) %>%
+  summarise(conteo = n(), .groups = "drop") %>%
+  pivot_wider(
+    names_from = sexo,
+    values_from = conteo,
+    values_fill = 0
+  ) %>%
+  rename(
+    hombres = HOMBRE,
+    mujeres = MUJER
+  )
+
+df1 <- df1 %>% 
+  filter(canton != "DESCONOCIDO")
+
+cantones <- st_read(here("data_raw", "shapefiles", "unidad_geoestadistica_cantonal_ugec_2024.shp"))
+
+cantones <- cantones  %>% 
+  mutate(nomb_ugec = str_to_upper(nomb_ugec),
+         nomb_ugec = str_replace_all(nomb_ugec, c(
+           "Á" = "A", "É" = "E", "Í" = "I", "Ó" = "O", "Ú" = "U", "Ñ" = "N"
+         )))
+
+cantones <- cantones %>% 
+  left_join(df1, by = c("nomb_ugec"= "canton"))
+
+grafico_mujeres <- ggplot(cantones) +
+  geom_sf(aes(fill = mujeres), color = "white") +
+  scale_fill_viridis_c(option = "plasma") +
+  labs(title = "Frecuencia de delitos: Mujeres por canton (2019-2025)", 
+       fill = "Mujeres") +
+  theme_minimal()
+grafico_mujeres
+ggsave(
+ filename = here("info", "graphics", "grafico_cantones_mujeres.png"),
+  plot = grafico_mujeres,
+  width = 15, height = 10, dpi = 450
+)
+
+grafico_hombres <- ggplot(cantones) +
+  geom_sf(aes(fill = hombres), color = "white") +
+  scale_fill_viridis_c(option = "plasma") +
+  labs(title = "Frecuencia de delitos: Hombres por canton (2019-2025)", 
+       fill = "Hombres") +
+  theme_minimal()
+grafico_hombres
+ggsave(
+  filename = here("info", "graphics", "grafico_cantones_hombres.png"),
+  plot = grafico_hombres,
+  width = 15, height = 10, dpi=450
+)
+
+
