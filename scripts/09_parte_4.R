@@ -336,4 +336,56 @@ ggsave(
   width = 15, height = 10, dpi=450
 )
 
+### EXTRA: Top 5 cantones con mas victimas de acuerdo al sexo
 
+top5_hombres <- datos %>%
+  filter(sexo == "HOMBRE", canton != "DESCONOCIDO") %>%
+  group_by(canton) %>%
+  summarise(total_hombres = n()) %>%
+  arrange(desc(total_hombres)) %>%
+  slice(1:5)
+
+grafico_top5_hombres <- ggplot(top5_hombres,
+                               aes(x = reorder(canton, total_hombres),
+                                   y = total_hombres)) +
+  geom_col(fill = "#1f77b4") +
+  geom_text(aes(label = total_hombres),
+            vjust = -0.4,hjust = -0.2 ,size = 4.5, fontface = "bold") +
+  coord_flip() +
+  labs(
+    title = "Los 5 cantones con más víctimas masculinas (2019-2025)",
+    x = "Cantón",
+    y = "Número de víctimas"
+  ) +
+  theme_minimal(base_size = 16)
+ggsave(
+  filename = here("info", "graphics", "grafico_top_hombres.pdf"),
+  plot = grafico_top5_hombres,
+  width = 15, height = 10, dpi=450
+)
+
+top5_hombres <- datos %>%
+  filter(sexo == "HOMBRE", canton != "DESCONOCIDO") %>%
+  group_by(canton) %>%
+  summarise(total_hombres = n()) %>%
+  arrange(desc(total_hombres)) %>%
+  slice(1:5)
+
+grafico_top5_hombres <- ggplot(top5_hombres,
+                               aes(x = reorder(canton, total_hombres),
+                                   y = total_hombres)) +
+  geom_col(fill = "#1f77b4") +
+  geom_text(aes(label = total_hombres),
+            vjust = -0.4,hjust = -0.2 ,size = 4.5, fontface = "bold") +
+  coord_flip() +
+  labs(
+    title = "Los 5 cantones con más víctimas masculinas (2019-2025)",
+    x = "Cantón",
+    y = "Número de víctimas"
+  ) +
+  theme_minimal(base_size = 16)
+ggsave(
+  filename = here("info", "graphics", "grafico_top_hombres.pdf"),
+  plot = grafico_top5_hombres,
+  width = 15, height = 10, dpi=450
+)
