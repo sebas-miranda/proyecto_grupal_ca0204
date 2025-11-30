@@ -150,7 +150,7 @@ resumen_canton <- resumen_canton %>%
   
 #Leemos el shp que se descargo en la fuente del INEC
 
-cantones <- st_read("../data_raw/shapefiles/unidad_geoestadistica_cantonal_ugec_2024.shp")
+cantones <- st_read(here("data_raw", "shapefiles", "unidad_geoestadistica_cantonal_ugec_2024.shp" ))
 
 #Hacemos todo mayuscula y sin tilde
 
@@ -165,16 +165,25 @@ cantones <- cantones  %>%
 cantones <- cantones %>% 
   left_join(resumen_canton, by = c("nomb_ugec"= "canton"))
 
+cantones_poly <- cantones %>% 
+  st_cast("MULTIPOLYGON", warn = FALSE) %>%
+  st_cast("POLYGON", warn = FALSE)
+
+bbox_cont <- st_as_sfc(
+  st_bbox(c(xmin = -86, xmax = -82, ymin = 8, ymax = 11.3), 
+          crs = st_crs(cantones_poly))
+)
+cantones_filtrado <- cantones_poly[st_intersects(cantones_poly, bbox_cont, sparse = FALSE), ]
+
 ###Graficamos
 
-
-grafico_cantones <- ggplot(cantones) +
+grafico_cantones <- ggplot(cantones_filtrado) +
   geom_sf(aes(fill = frecuencia_de_cantones), color = "white") +
   scale_fill_viridis_c(option = "plasma") +
   labs(title = "Frecuencia de reportes de delito por canton en Costa Rica entre 2019 y 2025", fill = "Frecuencia")
 #Guardamos
 ggsave(
-  filename = here("info", "graphics", "grafico_cantones.png"),
+  filename = here("info", "graphics", "grafico_cantones.pdf"),
   plot = grafico_cantones, 
   width = 15, height = 10, dpi = 450
 )
