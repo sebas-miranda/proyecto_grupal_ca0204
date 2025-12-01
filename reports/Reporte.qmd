@@ -1,0 +1,319 @@
+---
+title: "Sectorización de la Criminalidad en Costa Rica con un Enfoque de Género Entre los Años 2019 y 2025"
+author: 
+  - Kevin David Calderon Martínez (C4D511)
+  - Sebastián Calderón Segura (C21517)
+  - Sebastián Miranda Ramírez (C4H274)
+  - Santiago Paniagua Chavarría (C4I249)
+  - Josué Gustavo Rodríguez Aguilar (C4J023)
+format: pdf
+fontsize: 12pt
+mainfont: "Times New Roman"
+geometry: "margin = 2.54cm"
+include-in-header:
+  text: |
+      \usepackage{indentfirst}
+      \usepackage{hanging}
+      \usepackage{caption}
+      \usepackage{titling}
+      
+      \captionsetup[table]{name=Tabla}
+      \captionsetup[table]{font=small}
+      \captionsetup[figure]{name=Figura}
+      \captionsetup[figure]{font=small}
+      \setlength{\parindent}{1.27cm}
+      \setlength{\parskip}{0pt}
+      
+      
+      \addtokomafont{section}{\rmfamily}
+      \addtokomafont{subsection}{\rmfamily}
+      \addtokomafont{subsubsection}{\rmfamily}
+      
+      \pretitle{\begin{center}\fontsize{18pt}{20pt}\selectfont\bfseries}
+      \posttitle{\par\end{center}}
+  
+      \RedeclareSectionCommand[
+        beforeskip=2pt,
+        afterskip=2pt,
+        font=\rmfamily\normalsize\bfseries
+      ]{paragraph}
+      
+---
+
+## Introducción
+
+Históricamente, la delincuencia en Latinoamérica siempre ha influido en la seguridad nacional de toda la región. Sistemáticamente, esta parte del continente siempre ha sufrido una crisis de seguridad debido a muchos factores. Pero entre estos, destaca los índices de criminalidad, influenciados por el crimen organizado. Ciertamente, según Aguilar (2024) "El crimen organizado y los delitos contra la propiedad en Costa Rica han crecido de forma alarmante, mientras las políticas y los recursos policiales parecen insuficientes para contener su impacto en la sociedad." 
+
+En el contexto actual latinoamericano y su crisis de seguridad, surge la importancia de tomar en cuenta el comportamiento de los indicadores enfocados en las tasas de criminalidad, y todos sus derivados. La posición geográfica de Costa Rica juega un papel importante en el crimen organizado, pues el país se ha convertido en una ruta clave para el narcotráfico hacia Norteamérica y Europa. Los narcotraficantes utilizan embarcaciones rápidas que requieren repostaje en el mar costarricense para seguir su ruta hacia México. (Aguilar, 2024).
+
+## Planteamiento del problema:
+
+Una vez comprendida la situación actual de la inseguridad en Costa Rica, surge la necesidad de comprender el comportamiento de este factor, tomando como enfoque principal las varaciones en el género. Por consiguiente, se procede con la pregunta de investigación que funcionará como guía para el análisis del trabajo y darle finalidad a la data tratada, dicha pregunta es:
+
+__¿Cómo varía la frecuencia de los principales delitos en Costa Rica entre 2019 y 2025 según la provincia, cantón y las características de la víctima (edad y sexo)?__
+
+Para dar respuesta a dicha pregunta, se procede por relaciones lineales. En este caso, al ser multivariables relacionadas con la frecuencia de delitos, se condensa la respuesta en correlaciones lineales, en específico en la técnica del coeficiente de Pearson, pues identifica qué tan fuerte y en qué dirección se asocian estas variables con los cambios en los delitos a lo largo del tiempo.
+
+## Metodología
+
+### Enfoque y tipo de estudio
+
+El estudio se desarrolla bajo un enfoque cuantitativo, de tipo descriptivo–correlacional, con base en registros administrativos oficiales. Se analizan los delitos cometidos en Costa Rica entre 2019 y 2025 (periodo disponible en la base del OIJ) con el objetivo de identificar patrones de criminalidad por género en los cantones del país y estudiar su relación con variables socioeconómicas como pobreza y desempleo.
+
+La unidad de análisis es el evento delictivo registrado, que luego se agrupa por año, provincia/cantón, sexo y características de la víctima (principalmente edad y sexo). A nivel analítico, se trabaja con unidades agregadas del tipo cantón–año–género, que permiten vincular los delitos con indicadores socioeconómicos oficiales.
+
+### Fuentes de información y bases de datos
+
+Los datos principales de criminalidad provienen de las bases de delitos del Organismo de Investigación Judicial (OIJ) y de las estadísticas policiales consolidadas entre 2019 y julio de 2025. Como apoyo contextual se consideran informes del Observatorio de Seguridad Ciudadana, el Ministerio de Seguridad Pública y los indicadores de desarrollo y género publicados por el PNUD, que incluyen información sobre condiciones socioeconómicas por cantón, como pobreza y desempleo.
+
+### Preparación y limpieza de los datos
+
+Las bases originales se encontraban separadas por año y con diferencias en nombres de variables y formatos (por ejemplo, “género” vs. “sexo”, o fechas en distintos formatos). Estas se unificaron en una sola base de más de 345 000 registros con 12 variables categóricas (delito, subdelito, fecha, hora, víctima, subvíctima, edad, sexo, nacionalidad, provincia, cantón y distrito).
+
+Para mejorar la calidad de los datos se aplicaron los siguientes pasos:
+
+-   **Reclasificación de valores “NO APLICA” y “DESCONOCIDO”** como NA cuando no tenían sentido para el tipo de víctima (por ejemplo, edad o sexo asignados a “VIVIENDA” o “VEHÍCULO”).
+-   **Construcción de tablas de frecuencias** para todas las variables categóricas (delito, víctima, edad, sexo, nacionalidad, provincia y cantón) y elaboración de gráficos de barras y mapas coropléticos para describir la distribución espacial de los delitos.
+-   **Detección de outliers** en las frecuencias mediante el método del rango intercuartílico (IQR) y **winsorización** de los valores extremos (por ejemplo, cantones o provincias con frecuencias muy altas), con el fin de reducir la distorsión que estos pueden generar en los análisis correlacionales sin eliminar información relevante.
+
+A partir de esta base depurada se construyen variables cuantitativas de interés, como frecuencias anuales de delitos por provincia/cantón y sexo, y, cuando la información lo permite, tasas de delitos por población para cada cantón.
+
+### Etapas del análisis estadístico
+
+Debido a la forma en que está planteada la pregunta de investigación, el análisis se organiza en tres etapas principales:
+
+#### Etapa 1: Frecuencia de delitos a lo largo del tiempo
+
+En la primera etapa se estudia cómo varía la cantidad de delitos entre 2019 y 2025, desagregada por sexo de la víctima y por provincia. Para ello:
+
+-   Se agrupan los registros por año, sexo, provincia y cantón.
+-   Se elaboran tablas de frecuencia y gráficos para mostrar la evolución temporal de las víctimas de delitos, distinguiendo entre hombres y mujeres.
+-   De esta manera se identifican tendencias generales (incrementos, descensos o estabilidad en el tiempo) y se detectan años críticos para cada grupo.
+-   Añadido a ello, se sectoriza (Ya sea a nivel provincial o cantonal), la frecuencia de víctimas de acuerdo al sexo.
+
+En esta etapa, el año se trata como una variable cuantitativa (2019, 2020, …, 2025), lo que permite explorar si existe una tendencia lineal entre el paso del tiempo y la frecuencia de los reportes de los delitos.
+
+#### Etapa 2: Delitos según características de la víctima (edad y sexo)
+
+La segunda etapa se centra en la relación entre la frecuencia de delitos y las características de la víctima, especialmente edad y sexo.
+
+-   Se generan tablas de contingencia que cruzan los rangos de edad (menor de edad, mayor de edad, adulto mayor) y el sexo de la víctima, con el número de delitos registrados.
+-   Se calculan porcentajes por grupo (por ejemplo, porcentaje de delitos contra mujeres mayores de edad vs. hombres menores de edad) y se representan mediante gráficos de barras agrupadas o apiladas.
+
+Aunque edad y sexo son variables categóricas, al trabajar con sus frecuencias se obtienen indicadores numéricos que permiten describir qué grupos son más afectados y comparar la carga delictiva entre ellos.
+
+#### Etapa 3: Distribución espacial de los delitos por provincias y cantones
+
+En la tercera etapa se analiza la distribución espacial de los delitos.
+
+-   Se calcula la frecuencia de delitos por cantón, separando por sexo de la víctima.
+-   Esta información se vincula con un shapefile cantonal del INEC para generar mapas de tipo coroplético que permitan visualizar qué cantones concentran mayores niveles de criminalidad y cómo se distribuyen según género.
+
+Esta etapa es clave para el objetivo de sectorizar la criminalidad y para preparar el terreno del análisis correlacional con variables socioeconómicas.
+
+### Análisis correlacional con factores socioeconómicos
+
+Después de caracterizar los patrones temporales, demográficos y espaciales de la criminalidad, se realizó un análisis correlacional con el objetivo de explorar si las tasas de victimización nacionales presentan alguna asociación con indicadores de desarrollo humano y condiciones educativas de la población.
+
+Dado que no fue posible obtener datos cantonales completos de pobreza ni desempleo para todos los años del periodo 2019–2025, el análisis se centró en aquellas variables socioeconómicas disponibles para todos los cantones y que cuentan con series temporales consistentes a nivel nacional. Estas variables provienen del PNUD y del INEC e incluyen:
+
+-   IDG-D: Índice de Desarrollo de Género desagregado.
+
+-   IDH: Índice de Desarrollo Humano.
+
+-   IDH-D: Índice de Desarrollo Humano desagregado.
+
+-   Escolaridad femenina: porcentaje de mujeres con al menos educación secundaria.
+
+-   Escolaridad masculina: porcentaje de hombres con al menos educación secundaria.
+
+Para cada año, se construyeron las tasas nacionales de delitos por cada 100 000 habitantes, desagregadas por sexo, a partir de:
+
+-   La frecuencia anual de víctimas hombres y mujeres.
+
+-   La población total estimada del país.
+
+Con estas variables se generó una matriz de correlaciones utilizando el coeficiente de Pearson, el cual permite medir la fuerza y dirección de la asociación lineal entre:
+
+-   La tasa nacional de víctimas hombres (por 100 000 habitantes).
+
+-   La tasa nacional de víctimas mujeres (por 100 000 habitantes).
+
+-   Los indicadores IDH, IDH-D, IDG-D.
+
+-   Los niveles promedio de escolaridad por sexo.
+
+El análisis se centra en identificar si los niveles de desarrollo humano, equidad de género y escolaridad presentan alguna relación estadística con el comportamiento de las tasas de criminalidad durante el periodo 2019–2023.
+
+### La importancia del uso del coeficiente de correlación de Pearson
+
+El coeficiente de correlación de Pearson (r) es una medida estadística que indica qué tan fuerte y en qué dirección se relacionan dos variables cuantitativas. Su valor va de –1 a +1:
+
+-   Valores cercanos a +1 indican una relación lineal positiva fuerte (cuando una variable aumenta, la otra también).
+-   Valores cercanos a –1 indican una relación lineal negativa fuerte (cuando una sube, la otra tiende a bajar).
+-   Valores cerca de 0 sugieren ausencia de relación lineal clara.
+
+En este proyecto se escoge el coeficiente de Pearson por varias razones metodológicas:
+
+1.  **Las variables clave se transforman en cuantitativas.** Las tasas de victimización por cada 100 000 habitantes para hombres y mujeres son variables continuas, al igual que los indicadores socioeconómicos incluidos: IDH, IDH-D, IDG-D y porcentajes de escolaridad. Esto permite aplicar el coeficiente de Pearson.
+
+2.  **Interesa específicamente la relación lineal.** El propósito del análisis es determinar si variaciones en el nivel de desarrollo humano o en la escolaridad se asocian con aumentos o disminuciones en las tasas de criminalidad. Este tipo de relación —del tipo “a mayor desarrollo, menor tasa” o “a mayor escolaridad, menor criminalidad”— corresponde a una relación lineal, precisamente la que Pearson está diseñado para medir.
+
+3.  **Tamaño muestral grande y datos agregados.** Aunque el análisis se realiza a nivel nacional (una observación por año), las series disponibles son consistentes y comparables entre sí, lo cual permite explorar tendencias generales. Además, la estandarización de las tasas y el uso de promedios cantonales de IDH, IDH-D y escolaridad reducen la variabilidad extrema y mejoran la estabilidad de las correlaciones estimadas.
+
+4.  **Interpretación sencilla para la toma de decisiones.** Pearson ofrece un único número fácil de interpretar:
+
+    -   \|r\| entre 0 y 0,3 ≈ relación débil,
+    -   \|r\| entre 0,3 y 0,6 ≈ relación moderada,
+    -   \|r\| mayor a 0,6 ≈ relación fuerte. Esto facilita explicar los resultados a nivel académico y de política pública (por ejemplo, “la criminalidad tiene una correlación moderada y positiva con la pobreza cantonal”).
+
+5.  **Posibilidad de comparar por género.** El cálculo de correlaciones separadas para las tasas de víctimas hombres y de víctimas mujeres facilita identificar si los indicadores de desarrollo humano se relacionan de manera distinta con la criminalidad según el género. Esto fortalece el enfoque de género del proyecto y permite identificar patrones específicos de vulnerabilidad.
+
+## Análisis y Resultados
+
+Una vez realizadas todas las fases de la Metodología, es momento de mostrar y analizar los resultados obtenidos. 
+
+![Gráfico de la evolución anual de víctimas de delitos de acuerdo al sexo entre 2019 y 2025.](../info/graphics/grafico_victimas_año_sexo.pdf){width=100%}
+
+De acuerdo a las frecuencias obtenidas, se puede observar que el 2019 es el punto más alto de criminalidad tanto para hombres como para mujeres. Además, se observa una brusca caída en el año 2020. Esto coincidiendo con las políticas de movilización en contra de la pandemia. Ambas tasas se recuperan en 2023, pero decrecen hasta la actualidad (2025). Se observa que la cantidad de víctimas masculinas superan y casi duplican en todos los años a las femeninas.
+
+
+![Distribución en porcentaje de las víctimas por sexo, de acuerdo al rango de edad.](../info/graphics/grafico_distribucion_sexo_edad.pdf){width=100%}
+
+Para este caso, se han definido rangos de edad. Menor de edad (0-18 años), mayor de edad (18-65 años), adulto mayor (más de 65 años). Como se puede ver, en los tres rangos de edad las víctimas masculinas superan en porcentaje a las víctimas femeninas, lo cual encaja con el gráfico anterior. Acá se puede observar un patrón de distribuciones similares entre menores y mayores de edad, la variación en las víctimas adultas mayores es mayor.
+
+![Distribución de las víctimas por sexo, de acuerdo al rango de edad.](../info/graphics/grafico_delito_edad_sexo.pdf){width=100%}
+
+Aca se aprecia que el rango de Mayor de Edad supera en gran medida a los otros rangos en cuanto a cantidad total de víctimas. En los tres gráficos, sigue habiendo una tendencia a la dominancia masculina en las víctimas, y donde más se aprecia esa variación es en el mismo rango de mayor de edad. El comportamiento en los demás rangos es similar en cuanto a cifras.
+
+### Variación de Género a Nivel Provincia
+
+Una vez analizado las frecuencias y distribuciones anteriores, se procede a comprender la variación de las víctimas a nivel provincial. A continuación, se sectoriza la frecuencia de víctimas de acuerdo a la provincia, separadas por el sexo:
+
+![Distribución del número de víctimas de acuerdo al sexo en San José entre 2019 y 2025.](../info/graphics/victimas_sexo_SAN JOSE.pdf){width=80%}
+
+![Distribución del número de víctimas de acuerdo al sexo en Heredia entre 2019 y 2025.](../info/graphics/victimas_sexo_HEREDIA.pdf){width=80%}
+
+![Distribución del número de víctimas de acuerdo al sexo en Alajuela entre 2019 y 2025.](../info/graphics/victimas_sexo_ALAJUELA.pdf){width=80%}
+
+![Distribución del número de víctimas de acuerdo al sexo en Cartago entre 2019 y 2025.](../info/graphics/victimas_sexo_CARTAGO.pdf){width=80%}
+
+![Distribución del número de víctimas de acuerdo al sexo en Puntarenas entre 2019 y 2025.](../info/graphics/victimas_sexo_PUNTARENAS.pdf){width=80%}
+
+![Distribución del número de víctimas de acuerdo al sexo en Guanacaste entre 2019 y 2025.](../info/graphics/victimas_sexo_GUANACASTE.pdf){width=80%}
+
+![Distribución del número de víctimas de acuerdo al sexo en Limón entre 2019 y 2025.](../info/graphics/victimas_sexo_LIMON.pdf){width=80%}
+
+Con esto, se peude entender que el comportamiento de la cantidad de víctimas a nivel de cada provincia coincide con la Figura 1, que corresponde a la cantidad de víctimas a nivel nacional, siendo los hombres los que más sufren debido a un delito. La única excepción, o con un comportamiento no tan similar es Cartago, donde la criminalidad no crece con la misma fuerza que en otras provincias, sino que más bien decrece. También, se identifica a la provincia de San José; donde se supera el millar de víctimas por sexo, siendo este el sufre más delitos con diferencia. 
+
+### Variación de Género a nivel Cantonal
+
+De manera similar, ahora es turno de analizar la variación de las víctimas a nivel cantonal. Para este caso, note que Costa Rica posee actualmente más de 80 cantones en toda su zona territorial, por lo que hacer más de ochenta gráficos sería una tarea difícil. Es por eso que se estudia únicamente las frecuencias desde 2019 hasta 2025 por sexo total, sectorizado a cada cantón. Pero primero, se observa la frecuencia total sin dividir de acuerdo al sexo:
+
+![Frecuencia total de víctimas de delitos a nivel cantonal entre 2019 y 2025.](../info/graphics/grafico_cantones.pdf){width=100%}
+
+Este gráfico muestra que los cantones que se acercan al color, o son precisamente amarillos, son los cantones con mayor cantidad de delitos. Acá se puede observar una variación enorme entre los cantones que se encuentran fuera y dentro de la Gran Área Metropolitana (GAM), donde San José es el cantón por diferencia con mayor cantidad de delitos reportados entre 2019 y 2025.
+
+Ahora, se procede a dividir este mismo gráfico, pero sectorizando la cantidad de víctimas de acuerdo al sexo:
+
+![Frecuencia total de víctimas hombres por cada cantón entre 2019 y 2025.](../info/graphics/grafico_cantones_hombres.pdf){width=100%}
+
+Este gráfico muestra los delitos reportados por víctimas masculinas. Se puede apreciar que la tendencia es la misma, de acuerdo al gráfico anterior.
+
+![Frecuencia total de víctimas mujeres por cada cantón entre 2019 y 2025.](../info/graphics/grafico_cantones_mujeres.pdf){width=100%}
+
+Al igual que el gráfico masculino, la cantidad de delitos reportados por mujeres tiene un comportamiento similar al gráfico principal de las frecuencias totales. San José sigue siendo el cantón con mayor cantidad de delitos reportados.
+
+Entre el gráfico de frecuencias de hombres y mujer se sigue viendo la tendencia que se mostró en el primer apartado de esta sección; la cantidad de víctimas masculinas tiende a ser mayor no solo por provincia, sino que también por cantón. Aunque se debe de tener cuidado con los colores de ambos gráficos, pues estos están a diferentes escalas.
+
+#### Cantones con mayor y menor tasa de víctimas de acuerdo al sexo
+
+También se han hecho gráficos para extraer los 5 cantones con mayor y menor frecuencia de delitos de acuerdo al sexo. Se muestran a continuación:
+
+![Los 5 cantones con mayor cantidad de víctimas hombres en Costa Rica (2019-2025).](../info/graphics/grafico_top_hombres.pdf){width=80%}
+
+![Los 5 cantones con mayor cantidad de víctimas mujeres en Costa Rica (2019-2025).](../info/graphics/grafico_top_mujeres.pdf){width=80%}
+
+Al igual que la premisa inicial de la Figura 1: La distribución de víctimas sigue apuntando a que la maor cantidad de víctimas en materia de delitos son los hombres, superando por cada cantón a las víctimas mujeres. Note que, cuatro de los cinco cantones con mayor tasa de crímenes se encuentran dentro de la GAM, a excepción de Puntarenas.
+
+![Los 5 cantones con menor cantidad de víctimas hombres en Costa Rica (2019-2025).](../info/graphics/grafico_top_hombres_min.pdf){width=80%}
+
+![Los 5 cantones con menor cantidad de víctimas mujeres en Costa Rica (2019-2025).](../info/graphics/grafico_top_mujeres_min.pdf){width=80%}
+
+Análogamente al análisis realizado con el contrario de estos gráficos, si bien las víctimas en este gráfico son menores, sigue predominando la cantidad de víctimas masculinas. Con respecto a los cinco cantones con menos delitos de acuerdo al sexo, hay una mayor variación de los datos. Primero, que los cantones no se encuentran ordenados de la misma forma para cada sexo: Un ejemplo es el cantón de Nandayure, que si bien para los hombres es el cuarto con menos delitos reportados, para las mujeres es el cantón más seguro. Además de que cuatro de los cinco cantones coinciden por cada sexo, en orden distinto como se aclaró antes. Las únicas excepciones son los cantones de Dota para las mujeres, y Hojancha para los hombres.
+
+### Relación de los Datos con el Coeficiente de Pearson
+
+La matriz de correlaciones obtenida entre las tasas nacionales de victimización (hombres y mujeres) y los indicadores socioeconómicos seleccionados mencionados en el aparato metodológico (IDH, IDH-D, IDG-D y niveles de escolaridad desagregados por sexo) permite identificar varios patrones relevantes sobre la forma en que estas variables se relacionan entre 2019 y 2023. La tabla se muestra a continuación:
+
+```{r, echo = FALSE, warning = FALSE, message = FALSEr, echo = FALSE, warning = FALSE, message = FALSE}
+library(knitr)
+library(readr)
+library(here)
+library(dplyr)
+cor_pearson <- read_csv(here("data", "processed", "cor_pearson.csv"))
+
+cor_pearson_renombrado <- cor_pearson %>%
+  rename(
+    `Tasa H` = tasa_final_hombres_100k,
+    `Tasa M` = tasa_final_mujeres_100k,
+    `IDG-D` = IDG_D_promedio,
+    `IDH` = IDH_promedio,
+    `IDH-D` = IDH_D_promedio,
+    `Esc M` = esc_mujeres,
+    `Esc H` = esc_hombres
+  )
+
+
+kable(cor_pearson_renombrado, caption = "Matriz de Correlaciones (Con el Coeficiente de Pearson)")
+```
+
+Ahora, note que la correlación entre las tasas nacionales de victimas masculina y femenina es muy alta (0.98).
+Esto muestra que ambas series temporales se mueven prácticamente en paralelo: cuando aumenta la victimización masculina, también aumenta la femenina, y viceversa, por lo que no se muestra un aumento repentino de víctimas para un solo género.
+
+Los indicadores del IDH y el IDH-D tanto para hombre como para mujer tienen un comportamiento similar (0.72, 0.65 y 0.59, 0.52 respectivamente para cada sexo). Si bien esto no prueba que hay una relación totalmente lineal entre víctimas y estos indicadores, cada víctima separada por el género posee un comportamiento similar.
+
+Los indicadores de escolaridad muestran correlaciones débiles, negativas y cercanas a cerocon las tasas de víctimas para ambos sexos. Esto puede referirse a que la varición anual en la escolaridad no recibe una relación lineal con las variaciones de los niveles de criminalidad analizados por año.
+
+Ahora, se identifican correlaciones muy altas entre los indicadores de desarrollo humano y entre los niveles de escolaridad femenina y masculina (r > 0.85 en la mayoría de los casos). Esto tiene sentido, pues estos indicadores evolucionan conjuntamente: incrementos en el desarrollo humano suelen acompañarse de mejoras simultáneas en equidad de género y condiciones educativas.
+
+\newpage
+
+## Conclusiones
+
+El análisis de la evolución anual de las víctimas revela que el año 2019 concentra los niveles más altos de criminalidad tanto para hombres como para mujeres. En 2020 se observa un descenso significativo en todas las provincias, probablemente influenciado por las restricciones de movilidad durante la pandemia, lo cual redujo las oportunidades delictivas. A partir de 2021 se identificó un repunte progresivo que alcanza picos en 2023 o 2024 según la provincia. En todo el periodo, los hombres presentan sistemáticamente niveles más altos de victimización que las mujeres, aunque ambos grupos siguen tendencias muy similares. El aparente descenso en 2025 debe interpretarse con cautela, pues corresponde a un año con registros incompletos (enero–julio). Estos resultados muestran que la dinámica delictiva no es aleatoria, sino que sigue ciclos temporales que responden tanto a factores sociales como a condiciones extraordinarias.
+
+Al desagregar los delitos según sexo y rangos de edad, se observa que la mayoría de víctimas corresponden a personas mayores de edad, seguidas (a una distancia considerable) por menores de edad y adultos mayores. En todas las categorías etarias, los hombres representan la mayor proporción de víctimas como se vió en el gráfico de las distribuciones, aunque las mujeres mantienen una presencia significativa, especialmente en los grupos mayoritarios. Por otra parte, los mapas cantonales muestran que la criminalidad no se distribuye homogéneamente en el territorio nacional. La mayor concentración de delitos se ubica en zonas urbanas densamente pobladas, particularmente en el Gran Área Metropolitana en el cantón de San José por mucha diferencia, mientras que regiones periféricas presentan niveles notablemente menores. Estos patrones geográficos revelan desigualdades territoriales que deben considerarse al formular estrategias de prevención y políticas públicas.
+
+Como última conclusión, la correlación entre las tasas nacionales de delitos por sexo y los indicadores encontrados (IDH-H, IDG-G y escolaridad hasta al menos la secundaria por sexo) sugiere que sí existe una relación lineal entre el nivel de desarrollo del país y la evolución general de la criminalidad entre 2019 y 2023. Sin embargo, estas asociaciones deben entenderse con su debida cautela. Pues solo se encuentra una observación general por año, y la falta de indicadores genwrales de pobreza o desempleo a nivel cantonal, en resumen, falta de información. De todas formas, los resultados sugieren que la escolaridad también podría estar relacionada con la dinámica delictiva y que estos deben seguir siendo estudiados con mayor profundidad y con información actualizada. Se concluye en general que la seguridad y el bienestar social no han de ser fenómenos aislados, sino dimensiones correlacionadas que influyen conjuntamente en la realidad delictiva de Costa Rica.
+
+## Limitaciones
+
+Las bases de datos del OIJ no venían de forma unificada; sino separadas por año, y además presentaban diferencias en nombres de columnas y extensiones. Por lo tanto se tuvo que crear un script para leer cada año, estandarizar variables y unir todo en una sola base. Aunque esto permitió tener una base de datos unificada, cualquier error manual durante este proceso (sobre todo porque se realizó al inicio del proyecto) podría haber afectado los resultados.
+
+Debido a que las bases de datos traía información de sexo, nacionalidad, edad o subvíctima aún cuando la víctima no era persona (por ejemplo, era un vehículo, vivienda, o empresa) se decidió cambiar todas esas variables a "NO APLICA". Esto tiene lógica, pues el mismo OIJ aclara que dichas variables describen específicamente a la víctima, y objetos no tienen ni edad ni sexo. Sin embargo, esto también implica que, si por alguna razón en algún registro se había anotado información adicional, como datos del dueño del bien afectado, esa información se pierde.
+
+Como el archivo solo llega hasta julio de 2025, el año se presenta con menos observaciones, lo que a primera vista puede hacer parecer que hubo menos criminalidad en dicho año, cuando en realidad es simplemente que no está completo.
+
+Se aplicó winsonorización para reducir el impacto de los valores extremadamente altos, lo que, aunque mejora la uniformidad (sobretodo en los gráficos), también modifica artificialmente las frecuencias más altas, lo que hace que los datos de cantones con delitos muy altos sean atenuados, subestimando así la concentración de los delitos en estas zonas.
+
+Durante el análisis se usó la división cantonal correspondiente a 2024 para hacer los mapas, pero los años abarcan desde 2019. En esos años hubieron cambios a nivel cantonal, como la creación de Monteverde y Puerto Jiménez como cantones. Esto implica que en los primeros años dichos cantones no tendrán datos registrados en los mapas, pues esos datos se registraron sobre el cantón al que pertenecían antiguamente. Por tanto, en el análisis de los cantones que sufrieron este fénomeno se debe tener especial cuidado.
+
+\newpage
+
+## Bibliografía
+
+\begin{hangparas}{1.27cm}{1}
+
+Aguilar, I. (2024). Crecimiento de la delincuencia y del crimen organizado en el país. Radios UCR. \url{https://radios.ucr.ac.cr/2024/11/radio-universidad/delincuencia-crimen-cr/}
+
+Universidad de Sevilla. (2022). COEFICIENTE DE CORRELACIÓN LINEAL DE PEARSON. Universidad de Sevilla. \url{https://personal.us.es/vararey/adatos2/correlacion.pdf}
+
+Organizacion de Investigacion Judicial. Estadisticas Policiales. Poder Judicial. Recuperado noviembre de 2025, de \url{https://sitiooij.poder-judicial.go.cr/index.php/apertura/transparencia/estadisticas-policiales}
+
+PNUD-ONU. (2024). Atlas del Desarrollo Humano Cantonal. \url{https://www.undp.org/es/costa-rica/atlas-de-desarrollo-humano-cantonal-2024}
+
+INEC. (s. f.). Mapas INEC. Instituo Nacional de Estadistica y Censos. Recuperado noviembre de 2025, \url{https://inec.cr/mapas}
+
+\end{hangparas}
+
