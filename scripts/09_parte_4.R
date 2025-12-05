@@ -28,6 +28,7 @@ long_sexo <- sexo_victimas_anio %>%
   pivot_longer(cols = c(hombres, mujeres),
                names_to = "sexo",
                values_to = "conteo")
+long_sexo
 grafico_victimas_año_sexo <- ggplot(long_sexo, aes(x = anio, y = conteo, color = sexo)) +
   geom_line(size = 1.4) +
   geom_point(size = 2) +
@@ -391,3 +392,64 @@ ggsave(
   plot = grafico_top5_mujeres,
   width = 15, height = 10, dpi=450
 )
+
+## AHORA TOP 5 MENOS DELITOS
+
+top5_hombres_min <- datos %>%
+  filter(sexo == "HOMBRE", canton != "DESCONOCIDO") %>%
+  group_by(canton) %>%
+  summarise(total_hombres = n()) %>%
+  arrange(total_hombres) %>% 
+  slice(1:5)
+
+grafico_top5_hombres_min <- ggplot(top5_hombres_min,
+                                   aes(x = reorder(canton, total_hombres),
+                                       y = total_hombres)) +
+  geom_col(fill = "#1f77b4") +
+  geom_text(aes(label = total_hombres),
+            vjust = -0.4, hjust = -0.2, size = 4.5, fontface = "bold") +
+  coord_flip() +
+  labs(
+    title = "Los 5 cantones con MENOS víctimas masculinas (2019–2025)",
+    x = "Cantón",
+    y = "Número de víctimas"
+  ) +
+  theme_minimal(base_size = 16)
+
+ggsave(
+  filename = here("info", "graphics", "grafico_top_hombres_min.pdf"),
+  plot = grafico_top5_hombres_min,
+  width = 15, height = 10, dpi=450
+)
+
+top5_mujeres_min <- datos %>%
+  filter(sexo == "MUJER", canton != "DESCONOCIDO") %>%
+  group_by(canton) %>%
+  summarise(total_mujeres = n()) %>%
+  arrange(total_mujeres) %>% 
+  slice(1:5)
+
+grafico_top5_mujeres_min <- ggplot(top5_mujeres_min,
+                                   aes(x = reorder(canton, total_mujeres),
+                                       y = total_mujeres)) +
+  geom_col(fill = "#e15759") +
+  geom_text(aes(label = total_mujeres),
+            vjust = -0.4, hjust = -0.2, size = 4.5, fontface = "bold") +
+  coord_flip() +
+  labs(
+    title = "Los 5 cantones con MENOS víctimas femeninas (2019–2025)",
+    x = "Cantón",
+    y = "Número de víctimas"
+  ) +
+  theme_minimal(base_size = 16)
+
+ggsave(
+  filename = here("info", "graphics", "grafico_top_mujeres_min.pdf"),
+  plot = grafico_top5_mujeres_min,
+  width = 15, height = 10, dpi=450
+)
+
+
+
+
+

@@ -58,9 +58,7 @@ Para dar respuesta a dicha pregunta, se procede por relaciones lineales. En este
 
 ### Enfoque y tipo de estudio
 
-El estudio se desarrolla bajo un enfoque cuantitativo, de tipo descriptivo–correlacional, con base en registros administrativos oficiales. Se analizan los delitos cometidos en Costa Rica entre 2019 y 2025 (periodo disponible en la base del OIJ) con el objetivo de identificar patrones de criminalidad por género en los cantones del país y estudiar su relación con variables socioeconómicas como pobreza y desempleo.
-
-La unidad de análisis es el evento delictivo registrado, que luego se agrupa por año, provincia/cantón, sexo y características de la víctima (principalmente edad y sexo). A nivel analítico, se trabaja con unidades agregadas del tipo cantón–año–género, que permiten vincular los delitos con indicadores socioeconómicos oficiales.
+El estudio se desarrolla bajo un enfoque cuantitativo, de tipo descriptivo–correlacional, con base en registros administrativos oficiales. Se analizan los delitos cometidos en Costa Rica entre 2019 y 2025 (periodo disponible en la base del OIJ) con el objetivo de identificar patrones de criminalidad por género en los cantones del país y estudiar su relación con variables socioeconómicas como pobreza y desempleo. La unidad de análisis es el evento delictivo registrado, que luego se agrupa por año, provincia/cantón, sexo y características de la víctima (principalmente edad y sexo). A nivel analítico, se trabaja con unidades agregadas del tipo cantón–año–género, que permiten vincular los delitos con indicadores socioeconómicos oficiales.
 
 ### Fuentes de información y bases de datos
 
@@ -182,29 +180,14 @@ De acuerdo a las frecuencias obtenidas, se puede observar que el 2019 es el punt
 
 Para este caso, se han definido rangos de edad. Menor de edad (0-18 años), mayor de edad (18-65 años), adulto mayor (más de 65 años). Como se puede ver, en los tres rangos de edad las víctimas masculinas superan en porcentaje a las víctimas femeninas, lo cual encaja con el gráfico anterior. Acá se puede observar un patrón de distribuciones similares entre menores y mayores de edad, la variación en las víctimas adultas mayores es mayor.
 
-![Distribución de las víctimas por sexo, de acuerdo al rango de edad.](../info/graphics/grafico_delito_edad_sexo.pdf){width=100%}
-
-Aca se aprecia que el rango de Mayor de Edad supera en gran medida a los otros rangos en cuanto a cantidad total de víctimas. En los tres gráficos, sigue habiendo una tendencia a la dominancia masculina en las víctimas, y donde más se aprecia esa variación es en el mismo rango de mayor de edad. El comportamiento en los demás rangos es similar en cuanto a cifras.
-
 ### Variación de Género a Nivel Provincia
 
 Una vez analizado las frecuencias y distribuciones anteriores, se procede a comprender la variación de las víctimas a nivel provincial. A continuación, se sectoriza la frecuencia de víctimas de acuerdo a la provincia, separadas por el sexo:
 
 ![Distribución del número de víctimas de acuerdo al sexo en San José entre 2019 y 2025.](../info/graphics/victimas_sexo_SAN JOSE.pdf){width=80%}
 
-![Distribución del número de víctimas de acuerdo al sexo en Heredia entre 2019 y 2025.](../info/graphics/victimas_sexo_HEREDIA.pdf){width=80%}
 
-![Distribución del número de víctimas de acuerdo al sexo en Alajuela entre 2019 y 2025.](../info/graphics/victimas_sexo_ALAJUELA.pdf){width=80%}
-
-![Distribución del número de víctimas de acuerdo al sexo en Cartago entre 2019 y 2025.](../info/graphics/victimas_sexo_CARTAGO.pdf){width=80%}
-
-![Distribución del número de víctimas de acuerdo al sexo en Puntarenas entre 2019 y 2025.](../info/graphics/victimas_sexo_PUNTARENAS.pdf){width=80%}
-
-![Distribución del número de víctimas de acuerdo al sexo en Guanacaste entre 2019 y 2025.](../info/graphics/victimas_sexo_GUANACASTE.pdf){width=80%}
-
-![Distribución del número de víctimas de acuerdo al sexo en Limón entre 2019 y 2025.](../info/graphics/victimas_sexo_LIMON.pdf){width=80%}
-
-Con esto, se peude entender que el comportamiento de la cantidad de víctimas a nivel de cada provincia coincide con la Figura 1, que corresponde a la cantidad de víctimas a nivel nacional, siendo los hombres los que más sufren debido a un delito. La única excepción, o con un comportamiento no tan similar es Cartago, donde la criminalidad no crece con la misma fuerza que en otras provincias, sino que más bien decrece. También, se identifica a la provincia de San José; donde se supera el millar de víctimas por sexo, siendo este el sufre más delitos con diferencia. 
+Con esto, se peude entender que el comportamiento de la cantidad de víctimas a nivel de cada provincia coincide con la Figura 1, que corresponde a la cantidad de víctimas a nivel nacional, siendo los hombres los que más sufren debido a un delito. La única excepción, o con un comportamiento no tan similar es Cartago (Véase Figura 8), donde la criminalidad no crece con la misma fuerza que en otras provincias, sino que más bien decrece. También, se identifica a la provincia de San José; donde se supera el millar de víctimas por sexo, siendo este el sufre más delitos con diferencia. 
 
 ### Variación de Género a nivel Cantonal
 
@@ -214,33 +197,13 @@ De manera similar, ahora es turno de analizar la variación de las víctimas a n
 
 Este gráfico muestra que los cantones que se acercan al color, o son precisamente amarillos, son los cantones con mayor cantidad de delitos. Acá se puede observar una variación enorme entre los cantones que se encuentran fuera y dentro de la Gran Área Metropolitana (GAM), donde San José es el cantón por diferencia con mayor cantidad de delitos reportados entre 2019 y 2025.
 
-Ahora, se procede a dividir este mismo gráfico, pero sectorizando la cantidad de víctimas de acuerdo al sexo:
-
-![Frecuencia total de víctimas hombres por cada cantón entre 2019 y 2025.](../info/graphics/grafico_cantones_hombres.pdf){width=100%}
-
-Este gráfico muestra los delitos reportados por víctimas masculinas. Se puede apreciar que la tendencia es la misma, de acuerdo al gráfico anterior.
-
-![Frecuencia total de víctimas mujeres por cada cantón entre 2019 y 2025.](../info/graphics/grafico_cantones_mujeres.pdf){width=100%}
-
-Al igual que el gráfico masculino, la cantidad de delitos reportados por mujeres tiene un comportamiento similar al gráfico principal de las frecuencias totales. San José sigue siendo el cantón con mayor cantidad de delitos reportados.
-
 Entre el gráfico de frecuencias de hombres y mujer se sigue viendo la tendencia que se mostró en el primer apartado de esta sección; la cantidad de víctimas masculinas tiende a ser mayor no solo por provincia, sino que también por cantón. Aunque se debe de tener cuidado con los colores de ambos gráficos, pues estos están a diferentes escalas.
 
 #### Cantones con mayor y menor tasa de víctimas de acuerdo al sexo
 
-También se han hecho gráficos para extraer los 5 cantones con mayor y menor frecuencia de delitos de acuerdo al sexo. Se muestran a continuación:
+Al igual que la premisa inicial de la Figura 1: La distribución de víctimas sigue apuntando a que la mayor cantidad de víctimas en materia de delitos son los hombres, superando por cada cantón a las víctimas mujeres. Note que, cuatro de los cinco cantones con mayor tasa de crímenes se encuentran dentro de la GAM, a excepción de Puntarenas (Véase Figuras 16 y 17).
 
-![Los 5 cantones con mayor cantidad de víctimas hombres en Costa Rica (2019-2025).](../info/graphics/grafico_top_hombres.pdf){width=80%}
-
-![Los 5 cantones con mayor cantidad de víctimas mujeres en Costa Rica (2019-2025).](../info/graphics/grafico_top_mujeres.pdf){width=80%}
-
-Al igual que la premisa inicial de la Figura 1: La distribución de víctimas sigue apuntando a que la maor cantidad de víctimas en materia de delitos son los hombres, superando por cada cantón a las víctimas mujeres. Note que, cuatro de los cinco cantones con mayor tasa de crímenes se encuentran dentro de la GAM, a excepción de Puntarenas.
-
-![Los 5 cantones con menor cantidad de víctimas hombres en Costa Rica (2019-2025).](../info/graphics/grafico_top_hombres_min.pdf){width=80%}
-
-![Los 5 cantones con menor cantidad de víctimas mujeres en Costa Rica (2019-2025).](../info/graphics/grafico_top_mujeres_min.pdf){width=80%}
-
-Análogamente al análisis realizado con el contrario de estos gráficos, si bien las víctimas en este gráfico son menores, sigue predominando la cantidad de víctimas masculinas. Con respecto a los cinco cantones con menos delitos de acuerdo al sexo, hay una mayor variación de los datos. Primero, que los cantones no se encuentran ordenados de la misma forma para cada sexo: Un ejemplo es el cantón de Nandayure, que si bien para los hombres es el cuarto con menos delitos reportados, para las mujeres es el cantón más seguro. Además de que cuatro de los cinco cantones coinciden por cada sexo, en orden distinto como se aclaró antes. Las únicas excepciones son los cantones de Dota para las mujeres, y Hojancha para los hombres.
+Análogamente al análisis realizado con el contrario de estos gráficos, si bien las víctimas en este gráfico son menores, sigue predominando la cantidad de víctimas masculinas. Con respecto a los cinco cantones con menos delitos de acuerdo al sexo, hay una mayor variación de los datos. Primero, que los cantones no se encuentran ordenados de la misma forma para cada sexo: Un ejemplo es el cantón de Nandayure, que si bien para los hombres es el cuarto con menos delitos reportados, para las mujeres es el cantón más seguro. Además de que cuatro de los cinco cantones coinciden por cada sexo, en orden distinto como se aclaró antes. Las únicas excepciones son los cantones de Dota para las mujeres, y Hojancha para los hombres (Véase Figuras 14 y 15).
 
 ### Relación de los Datos con el Coeficiente de Pearson
 
@@ -317,3 +280,44 @@ INEC. (s. f.). Mapas INEC. Instituo Nacional de Estadistica y Censos. Recuperad
 
 \end{hangparas}
 
+\newpage
+
+## Anexos
+
+![Distribución de las víctimas por sexo, de acuerdo al rango de edad.](../info/graphics/grafico_delito_edad_sexo.pdf){width=100%}
+
+Aca se aprecia que el rango de Mayor de Edad supera en gran medida a los otros rangos en cuanto a cantidad total de víctimas. En los tres gráficos, sigue habiendo una tendencia a la dominancia masculina en las víctimas, y donde más se aprecia esa variación es en el mismo rango de mayor de edad. El comportamiento en los demás rangos es similar en cuanto a cifras.
+
+![Distribución del número de víctimas de acuerdo al sexo en Heredia entre 2019 y 2025.](../info/graphics/victimas_sexo_HEREDIA.pdf){width=80%}
+
+![Distribución del número de víctimas de acuerdo al sexo en Alajuela entre 2019 y 2025.](../info/graphics/victimas_sexo_ALAJUELA.pdf){width=80%}
+
+![Distribución del número de víctimas de acuerdo al sexo en Cartago entre 2019 y 2025.](../info/graphics/victimas_sexo_CARTAGO.pdf){width=80%}
+
+![Distribución del número de víctimas de acuerdo al sexo en Puntarenas entre 2019 y 2025.](../info/graphics/victimas_sexo_PUNTARENAS.pdf){width=80%}
+
+![Distribución del número de víctimas de acuerdo al sexo en Guanacaste entre 2019 y 2025.](../info/graphics/victimas_sexo_GUANACASTE.pdf){width=80%}
+
+![Distribución del número de víctimas de acuerdo al sexo en Limón entre 2019 y 2025.](../info/graphics/victimas_sexo_LIMON.pdf){width=80%}
+
+Ahora, se procede a dividir este mismo gráfico, pero sectorizando la cantidad de víctimas de acuerdo al sexo:
+
+![Frecuencia total de víctimas hombres por cada cantón entre 2019 y 2025.](../info/graphics/grafico_cantones_hombres.pdf){width=100%}
+
+Este gráfico muestra los delitos reportados por víctimas masculinas. Se puede apreciar que la tendencia es la misma, de acuerdo al gráfico anterior.
+
+![Frecuencia total de víctimas mujeres por cada cantón entre 2019 y 2025.](../info/graphics/grafico_cantones_mujeres.pdf){width=100%}
+
+Al igual que el gráfico masculino, la cantidad de delitos reportados por mujeres tiene un comportamiento similar al gráfico principal de las frecuencias totales. San José sigue siendo el cantón con mayor cantidad de delitos reportados.
+
+![Los 5 cantones con menor cantidad de víctimas hombres en Costa Rica (2019-2025).](../info/graphics/grafico_top_hombres_min.pdf){width=80%}
+
+![Los 5 cantones con menor cantidad de víctimas mujeres en Costa Rica (2019-2025).](../info/graphics/grafico_top_mujeres_min.pdf){width=80%}
+
+![Los 5 cantones con mayor cantidad de víctimas hombres en Costa Rica (2019-2025).](../info/graphics/grafico_top_hombres.pdf){width=80%}
+
+![Los 5 cantones con mayor cantidad de víctimas mujeres en Costa Rica (2019-2025).](../info/graphics/grafico_top_mujeres.pdf){width=80%}
+
+![Los 5 cantones con mayor cantidad de víctimas hombres en Costa Rica (2019-2025).](../info/graphics/grafico_top_hombres.pdf){width=80%}
+
+![Los 5 cantones con mayor cantidad de víctimas mujeres en Costa Rica (2019-2025).](../info/graphics/grafico_top_mujeres.pdf){width=80%}
